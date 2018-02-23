@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.mapper.system.SysMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.app.model.system.SysMenu" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="menu_id" property="menuId" jdbcType="BIGINT" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="is_open" property="isOpen" jdbcType="VARCHAR" />
+    <result column="target" property="target" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+ <select id="queryMenuListByMap" parameterType="java.util.Map" resultType="com.base.util.ZtreeVO">
+		SELECT
+			DISTINCT
+			d.menu_id id,
+			d.parent_id pId,
+			d. LEVEL 'level',
+			d.menu_name name,
+			d.menu_url openUrl,
+			d.is_open open,
+			d.sort,
+			d.target
+		FROM
+			sys_user a,
+			sys_user_role b,
+			sys_role_menu c,
+			sys_menu d
+		WHERE
+			a.user_id = b.user_id
+		AND b.role_id = c.role_id
+		AND c.menu_id = d.menu_id
+		AND d.state = 1
+		<if test="userId!=null and userId!=''">
+			AND a.user_id = #{userId}
+		</if>
+  </select>
+  
+  <select id="queryAllMenuList" resultType="com.base.util.ZtreeVO">
+		SELECT
+			a.menu_id id,
+			a.parent_id pId,
+			a. LEVEL 'level',
+			a.menu_name NAME,
+			a.menu_url openUrl,
+			a.is_open OPEN,
+			a.sort,
+			a.target
+		FROM
+			sys_menu a
+		WHERE
+			a.state = 1
+  </select>
+  
+  <select id="queryOptionMenuList" resultMap="BaseResultMap">
+			SELECT * FROM sys_menu a where a.state = 1
+  </select>
+  
+  <select id="querySysMenuList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			sys_menu a
+		WHERE
+			1 = 1
+		<if test="menuName!=null and menuName!=''">
+			and menu_name like CONCAT('%',#{menuName},'%')
+		</if>
+  </select>
+  
+  <select id="queryMaxSort" resultType="java.lang.Integer">
+		SELECT MAX(a.sort) FROM sys_menu a
+  </select>
+  
+  <select id="queryMenuByMenuId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		SELECT * FROM sys_menu a where a.menu_id = #{menuId}
+  </select>
+  
+  <select id="queryGrantMenuList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		SELECT
+			b.*
+		FROM
+			sys_role_menu a,
+			sys_menu b
+		WHERE
+			a.menu_id = b.menu_id
+		AND a.role_id = #{roleId}
+  </select>
+  
+</mapper>

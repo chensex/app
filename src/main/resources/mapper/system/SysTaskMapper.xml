@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.mapper.system.SysTaskMapper">
+  <resultMap id="BaseResultMap" type="com.app.model.system.SysTask">
+    <id column="task_id" jdbcType="BIGINT" property="taskId" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="task_state" jdbcType="VARCHAR" property="taskState" />
+    <result column="run_state" jdbcType="VARCHAR" property="runState" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="time_expression" jdbcType="VARCHAR" property="timeExpression" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="task_service" jdbcType="VARCHAR" property="taskService" />
+    <result column="task_method" jdbcType="VARCHAR" property="taskMethod" />
+  </resultMap>
+  
+  <select id="querySysTaskList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			sys_task a
+		WHERE
+			1 = 1
+		<if test="taskName!=null and taskName!=''">
+			and task_name like CONCAT('%',#{taskName},'%')
+		</if>
+  </select>
+  
+  <select id="queryTaskById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			sys_task a
+		WHERE
+			a.task_id = #{taskId}
+  </select>
+  
+  <select id="queryTaskByMethod" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			sys_task a
+		WHERE
+			a.task_method = #{taskMethod}
+  </select>
+  
+    <select id="queryTaskListByState" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			sys_task a
+		WHERE
+			a.task_state = #{taskState}
+  </select>
+</mapper>

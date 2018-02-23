@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.mapper.system.SysRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.app.model.system.SysRole" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="role_id" property="roleId" jdbcType="BIGINT" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+	
+  <select id="querySysRoleList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			sys_role a
+		WHERE
+			1 = 1
+		<if test="roleName!=null and roleName!=''">
+			and a.role_name like CONCAT('%',#{roleName},'%')
+		</if>
+		<if test="state!=null and state!=''">
+			and a.state = #{state}
+		</if>
+  </select>
+  
+  <select id="queryRoleByRoleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		SELECT * FROM sys_role a where a.role_id = #{roleId}
+  </select>
+  
+  <select id="queryRoleByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		SELECT
+			b.*
+		FROM
+			sys_user_role a
+		LEFT JOIN sys_role b ON a.role_id = b.role_id
+		WHERE
+			a.user_id = #{userId}
+  </select>
+</mapper>

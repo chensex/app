@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 引入配置文件 -->
+	<properties resource="config.properties" />
+
+
+	<!-- 一个数据库一个context -->
+	<context id="mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+		<property name="beginningDelimiter" value="`" />
+		<property name="endingDelimiter" value="`" />
+
+		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+			<property name="mappers" value="tk.mybatis.mapper.common.Mapper" />
+		</plugin>
+
+		<commentGenerator>
+			<!-- 是否生成注释代时间戳 -->
+			<property name="suppressDate" value="true" />
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="false" />
+		</commentGenerator>
+
+		<!-- 类型转换 -->
+
+
+		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<jdbcConnection driverClass="${jdbc.driverClassName}"
+			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
+		</jdbcConnection>
+		<!--Java实体类目录 -->
+		<javaModelGenerator targetPackage="com.app.model.system"
+			targetProject="src/main/java" />
+		<!--Mapper类目录 -->
+		<sqlMapGenerator targetPackage="com.app.model.xml"
+			targetProject="src/main/java" />
+		<!--Mapper配置文件目录 -->
+		<javaClientGenerator targetPackage="com.app.mapper.system"
+			targetProject="src/main/java" type="XMLMAPPER" />
+
+		<table schema="general" tableName="sys_role_menu"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<generatedKey column="role_menu_id" sqlStatement="Mysql"
+				identity="true" />
+		</table>
+
+	</context>
+</generatorConfiguration>

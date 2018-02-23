@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	 xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+       <context:component-scan base-package="com.app.controller" />
+	   
+	   <!-- 扫描activiti在线编辑器的跳转@RestController -->
+	<context:component-scan base-package="com.rest.editor" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+       <!-- @Aspect配置，因为spring mvc启动的是WebApplicationContext,controller是在mvc应用下，所以@Aspect
+   	    也应该配置在mvc配置文件中-->
+       <aop:aspectj-autoproxy/>
+       <context:property-placeholder location="classpath:config.properties"/>
+		<mvc:annotation-driven>
+			<mvc:message-converters>
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg value="UTF-8" index="0"/>
+				    <property name="supportedMediaTypes">
+				        <list>
+				            <value>text/plain;charset=UTF-8</value>
+				        </list>
+				    </property>
+				</bean>
+				<!-- <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<property name="supportedMediaTypes"> 
+						<list>
+							
+							<value>text/html;charset=UTF-8</value>
+							<value>application/json;charset=UTF-8</value>
+							<value>text/plain;charset=UTF-8</value>
+						</list> 
+					</property> 
+					<property name="objectMapper">
+						<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+							<property name="dateFormat">
+								<bean class="java.text.SimpleDateFormat">
+									<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+								</bean>
+							</property>
+						</bean>
+					</property>
+				</bean> -->
+			</mvc:message-converters>
+		</mvc:annotation-driven>
+		
+       <mvc:default-servlet-handler />
+       <mvc:interceptors>
+       	<mvc:interceptor>
+       		<mvc:mapping path="/app/**"/>
+       		<bean class="com.app.intercepters.AppIntercepter"></bean>
+       	</mvc:interceptor>
+       	<mvc:interceptor>
+       		<mvc:mapping path="/app/system/**"/>
+       		<bean class="com.app.intercepters.AppIntercepter"></bean>
+       	</mvc:interceptor>
+       	<mvc:interceptor>
+       		<mvc:mapping path="/app/service/**"/>
+       		<bean class="com.app.intercepters.AppIntercepter"></bean>
+       	</mvc:interceptor>
+       	<mvc:interceptor>
+       		<mvc:mapping path="/app/editor/**"/>
+       		<bean class="com.app.intercepters.AppIntercepter"></bean>
+       	</mvc:interceptor>
+       </mvc:interceptors>
+
+		<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+			<property name="prefix" value="/view/"></property>
+			<property name="suffix" value=".jsp"></property>
+		</bean>
+</beans>

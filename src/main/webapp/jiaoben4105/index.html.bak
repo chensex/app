@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery带箭头图片层叠轮播切换代码 - 站长素材</title>
+<link type="text/css" rel="stylesheet" href="css/reset.css" />
+<link type="text/css" rel="stylesheet" href="css/style.css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="js/jquery_slide.js"></script>
+
+<script type="text/javascript">
+	
+	alert($("#dayin").innerHTML());
+	
+</script>
+
+</head>
+
+
+<body>
+
+<div style="height:40px;"></div>
+
+<div class="container_image">
+	<a href="javascript:void(0)" tip="0" class="i_btn prev_L"></a>
+	<a href="javascript:void(0)" tip="1" class="i_btn next_R"></a>
+	<ul class="slide_img">
+		<li class="on">
+			<a href="javascript:void(0);"><img src="images/za8_img.jpg" /></a>
+		</li>
+		<li>
+			<a href="javascript:void(0)"><img src="images/za4_img.jpg" /></a>
+			
+		</li>
+		<li>
+			<a href="javascript:void(0)"><img src="images/za3_img.jpg" /></a>
+			
+		</li>
+		<li>
+			<a href="javascript:void(0)"><img src="images/za1_img.jpg" /></a>
+			
+		</li>
+		<li>
+			<a href="javascript:void(0)"><img src="images/za2_img.jpg" /></a>
+			
+		</li>
+		<li>
+			<a href="javascript:void(0)"><img src="images/za6_img.jpg" /></a>
+			
+		</li>
+		<li>
+			<a href="javascript:void(0)"><img src="images/za7_img.jpg" /></a>
+			
+		</li>
+	</ul>
+</div>
+<div id="dayin">
+	212121
+</div>
+<script type="text/javascript">
+$(function(){
+
+	var newopt={
+		w2:"180",//小图宽度
+		h2:"490"//小图高度 
+	};
+	
+	i_slide($(".container_image"),newopt);
+	
+});
+</script>
+</body>
+</html>
