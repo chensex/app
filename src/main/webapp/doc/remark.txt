@@ -1,0 +1,1 @@
+1：使用APP必须引入baseapp jar包 或者baseapp项目。
