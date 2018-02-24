@@ -26,7 +26,7 @@ import com.base.util.CommonUtil;
 import com.base.util.JackSonSerializeUtil;
 import com.github.pagehelper.PageInfo;
 /**
- * 类说明：任务管理
+ * 类说明：任务管理 
  * @author CHENWEI
  * 2016年9月6日
  */
