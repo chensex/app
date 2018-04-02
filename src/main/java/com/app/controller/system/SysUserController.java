@@ -4,11 +4,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
+import javax.jms.Destination;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +27,7 @@ import com.base.util.Cipher;
 import com.base.util.CommonAjax;
 import com.base.util.CommonUtil;
 import com.base.util.JackSonSerializeUtil;
+import com.base.util.MQSendUtil;
 import com.github.pagehelper.PageInfo;
 
 @Controller
@@ -38,6 +42,12 @@ public class SysUserController extends BaseController{
 	
 	@Autowired
 	private SysRoleService roleService;
+	
+	@Resource(name="testDestination")
+	private Destination testDestination;
+	
+	@Autowired
+	private JmsTemplate jmsTemplate;
 	
 	@RequestMapping(value="/sysUserList",method=RequestMethod.GET)
 	public ModelAndView sysUserList(HttpServletRequest request,HttpServletResponse response){
@@ -56,6 +66,9 @@ public class SysUserController extends BaseController{
 		if(req.getParameter("rows") != null){
 			pageSize = Integer.valueOf(req.getParameter("rows"));
 		}
+		Map<String, Object> mqMap = new HashMap<String,Object>();
+		mqMap.put("test", "testDestination");
+		MQSendUtil.sendMessage(jmsTemplate, testDestination, mqMap);
 		debug("Controller分页日志:page=" + page + "pageSize=" + pageSize);
 		return pageToJson(new PageInfo<SysMenu>(userService.selectSysUserList(
 			getRequestParameterAsMap(req), page, pageSize)));

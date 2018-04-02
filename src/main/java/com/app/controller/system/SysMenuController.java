@@ -1,11 +1,13 @@
 package com.app.controller.system;
 import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +32,8 @@ import com.github.pagehelper.PageInfo;
 public class SysMenuController extends BaseController{
 	@Autowired
 	private SysMenuService menuService;
+	@Autowired
+	private RedisTemplate<String, Object> redisTemplate;
 	
 	@RequestMapping(value="/sysMenuList",method=RequestMethod.GET)
 	public ModelAndView sysMenuList(HttpServletRequest request,HttpServletResponse response){
@@ -51,6 +55,13 @@ public class SysMenuController extends BaseController{
 			pageSize = Integer.valueOf(req.getParameter("rows"));
 		}
 		debug("Controller分页日志:page=" + page + "pageSize=" + pageSize);
+		
+		//自定义时间存储
+		if(redisTemplate.opsForValue().get("test") == null) {
+			//从数据库读取 并放入redis
+			redisTemplate.opsForValue().set("test", "test",1,TimeUnit.HOURS);//存储一个小时
+		}
+		
 		return pageToJson(new PageInfo<SysMenu>(menuService.selectSysMenuList(
 			getRequestParameterAsMap(req), page, pageSize)));
 	}
