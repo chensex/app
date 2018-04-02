@@ -3,9 +3,13 @@ package com.app.model.system;
 import java.util.Date;
 import javax.persistence.*;
 
+import com.base.model.BaseModel;
+
 @Table(name = "sys_role")
-public class SysRole {
-    /**
+public class SysRole extends BaseModel{
+	private static final long serialVersionUID = -434164338810146930L;
+
+	/**
      * 主键
      */
     @Id

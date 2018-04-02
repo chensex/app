@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.app.mapper.system.SysMenuMapper;
@@ -28,6 +29,8 @@ public class SysMenuServiceImpl extends BaseServiceImpl implements SysMenuServic
 		return sysMenuMapper.queryMenuListByMap(map);
 	}
 
+	//使用配置时间存储
+	@Cacheable("selectOptionMenuList")
 	public List<SysMenu> selectOptionMenuList() {
 		return sysMenuMapper.queryOptionMenuList();
 	}

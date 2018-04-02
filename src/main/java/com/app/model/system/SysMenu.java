@@ -5,9 +5,13 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.base.model.BaseModel;
+
 @Table(name = "sys_menu")
-public class SysMenu {
-    /**
+public class SysMenu extends BaseModel{
+	private static final long serialVersionUID = 5149954618031069798L;
+
+	/**
      * 主键
      */
     @Id

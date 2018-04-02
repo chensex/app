@@ -1,13 +1,16 @@
 package com.app.model.system;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 
 @Table(name = "sys_user")
-public class SysUser {
-    /**
+public class SysUser implements Serializable{
+	private static final long serialVersionUID = 7485651453835368385L;
+
+	/**
      * 主键
      */
     @Id

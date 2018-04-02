@@ -3,14 +3,18 @@ package com.app.model.system;
 import java.util.Date;
 import javax.persistence.*;
 
+import com.base.model.BaseModel;
+
 /**
  * 类说明：日志
  * @author CHENWEI
  * 2016年9月5日
  */
 @Table(name = "sys_log")
-public class SysLog {
-    /**
+public class SysLog extends BaseModel{
+	private static final long serialVersionUID = 1663372592247670268L;
+
+	/**
      * ID
      */
     @Id

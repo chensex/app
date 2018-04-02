@@ -2,6 +2,8 @@ package com.app.model.system;
 
 import java.util.Date;
 import javax.persistence.*;
+
+import com.base.model.BaseModel;
 /**
  * 类说明：任务管理
  * @author CHENWEI
@@ -9,7 +11,7 @@ import javax.persistence.*;
  */
 @Table(name = "sys_task")
 public class SysTask extends BaseModel{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1630210352363103308L;
 
 	/**
      * id
