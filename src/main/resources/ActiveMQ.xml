@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:amq="http://activemq.apache.org/schema/core"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jms
+        http://www.springframework.org/schema/jms/spring-jms.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://activemq.apache.org/schema/core
+        http://activemq.apache.org/schema/core/activemq-core-5.12.0.xsd">
+
+	 <context:component-scan base-package="com.app"/>
+	 
+	 <context:property-placeholder location="classpath:config.properties"/>
+	
+	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">  
+   		<property name="brokerURL" value="${mq.brokerURL}"/>
+   		<property name="userName" value="${mq.userName}"/>
+   		<property name="password" value="${mq.password}"/>
+   		<!-- 同步发送消息 --> 
+   		<property name="alwaysSyncSend" value="${mq.alwaysSyncSend}"/>
+   		<!-- 忽略这个设置 --> 
+   		<property name="useAsyncSend" value="${mq.useAsyncSend}"/>
+   		
+   		<!-- 异步发送消息 --> 
+   		<!-- <property name="alwaysSyncSend" value="false"/>
+   		<property name="useAsyncSend" value="true"/> -->
+	</bean>
+
+	<!-- ActiveMQ为我们提供了一个PooledConnectionFactory，通过往里面注入一个ActiveMQConnectionFactory   
+        可以用来将Connection、Session和MessageProducer池化，这样可以大大的减少我们的资源消耗,要依赖于 activemq-pool包 -->  
+    <!-- <bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">  
+        <property name="connectionFactory" ref="targetConnectionFactory" />  
+        <property name="maxConnections" value="100" />  
+    </bean> -->
+
+	<!-- Spring Caching 连接工厂 -->
+	<bean id="mqConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+		<!-- 目标ConnectionFactory对应真实的可以产生JMS Connection的ConnectionFactory -->
+		<property name="targetConnectionFactory" ref="targetConnectionFactory"></property>
+		<!-- Session缓存连接数量 -->
+		<property name="sessionCacheSize" value="${mq.sessionCacheSize}" />
+	</bean>
+	<!-- Spring JmsTemplate 的消息生产者 start -->
+	
+	<!-- 点对点类型 -->
+	<bean id="jmsQueueTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->
+		<property name="connectionFactory" ref="mqConnectionFactory"></property>
+		<!-- deliveryMode, priority, timeToLive 的开关，要生效，必须配置为true，默认false-->
+		<property name="explicitQosEnabled" value="${mq.explicitQosEnabled}" />
+		<!-- NON_PERSISTENT非持久化 1 ，PERSISTENT持久化 2 -->
+		<property name="deliveryMode" value="${mq.deliveryMode}" />
+		<!-- <property name="sessionAcknowledgeMode" value="2" /> -->
+		<!-- 是否使用事物 -->
+		<property name="sessionTransacted" value="${mq.sessionTransacted}" />
+		<!-- 非pub/sub模型（发布/订阅），即队列模式 -->
+		<property name="pubSubDomain" value="${mq.pubSubDomain}" />
+		<property name="receiveTimeout" value="${mq.receiveTimeout}" />
+		<property name="messageConverter">  
+            <bean  
+                class="org.springframework.jms.support.converter.SimpleMessageConverter" />  
+        </property>
+	</bean>
+
+	<!--测试消息队列 -->
+	<bean id="testDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg>
+			<value>testMQ</value>
+		</constructor-arg>
+	</bean>
+	
+	<!-- 充值监听器 -->
+	<bean id="testListener" class="com.app.listener.TestListener" />
+	
+	<!-- 测试容器 -->
+	<bean id="rechargeContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="mqConnectionFactory" />
+		<property name="destination" ref="testDestination" />
+		<property name="messageListener" ref="testListener" />
+		<property name="sessionTransacted" value="false"/>
+		
+		<!-- 当配制成1时，接收端自动确认，不管接收端报不报错，消息都只处理一次，报错后记录下来处理
+			   当配置成2时，如果程序没有报错，也被直接确认了 ，程序只处理一次；如果程序报错，如果想要程序只处理一次，后续不会再处理，解决办法，是获取
+			 异常(一定要获取Exception异常,这样消息就不会反复进入队列7次，最终进入异常队列)，但是业务失败，记录下来处理
+			 配置为3没有用过
+			 配置为4，只能activemq能用，接收端必须要确认，不管程序报错否，不然消息就会一直在待处理队列中，如果不确认，重启mq后还会继续处理此条数据
+			 报错就记下来处理-->
+		<property name="sessionAcknowledgeMode" value="2"/>
+		<!-- <property name="transactionManager" ref="jmsTransactionManager"/> -->
+		<!-- 线程数 固定 默认为1个-->
+		<!-- <property name="concurrentConsumers" value="1"/> -->
+		<!-- 线程数可变-->
+		<property name="concurrency" value="1-4"/>
+	</bean>
+</beans>
+        
+   
