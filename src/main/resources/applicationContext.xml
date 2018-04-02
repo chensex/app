@@ -4,6 +4,7 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns="http://www.springframework.org/schema/beans"
+       xmlns:cache="http://www.springframework.org/schema/cache"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx
@@ -11,7 +12,11 @@
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/cache
+       http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
        
        <!-- 扫描包注册成, 如果扫描到有@Component @Controller@Service等这些注解的类，则把这些类注册为bean-->
        <context:component-scan base-package="com.app"/>
@@ -112,18 +117,43 @@
     	<property name="timeout"  value="${redis.timeout}"/>
     	<property name="poolConfig" ref="poolConfig"/>
     </bean>
+    <!--jedis封装类配置 --> 
+    <bean id="cookieSerializer" class="org.springframework.session.web.http.DefaultCookieSerializer">
+		<property name="cookiePath" value="/"></property>
+	</bean> 
+    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+    	<property name="maxInactiveIntervalInSeconds" value="1800"></property>
+    </bean>
     
-    <!--jedis封装类配置 -->
-    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
     	<property name="connectionFactory" ref="connectionFactory"></property>
-    	<!--序列化key -->
     	<property name="keySerializer">
     		<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
     	</property>
-    	<!--序列化value -->
+    	<property name="hashKeySerializer">
+    		<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
+    	</property>
     	<property name="valueSerializer">
     		<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"></bean>
     	</property>
+    	<property name="hashValueSerializer">
+    		<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"></bean>
+    	</property>
+    </bean>
+    
+    <!-- 配置RedisCacheManager -->  
+    <bean id="redisCacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">  
+         <constructor-arg name="redisOperations" ref="redisTemplate" />  
+        <property name="defaultExpiration" value="${redis.expiration}"/>  
+    </bean>
+	
+	<cache:annotation-driven cache-manager="redisCacheManager" />
+	
+	<!-- 配置RedisCacheConfig -->
+    <bean id="redisCacheConfig" class="com.app.listener.RedisCacheConfig">
+        <constructor-arg ref="connectionFactory"/>
+        <constructor-arg ref="redisTemplate"/>
+        <constructor-arg ref="redisCacheManager"/>
     </bean>
 	
 	<!-- 配置流程引擎配置信息对象 -->
