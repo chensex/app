@@ -23,7 +23,7 @@ import com.base.enums.RunStateEnum;
 import com.base.enums.TaskStateEnum;
 import com.base.util.CommonAjax;
 import com.base.util.CommonUtil;
-import com.base.util.JackSonSerializeUtil;
+import com.base.util.JackSonUtil;
 import com.github.pagehelper.PageInfo;
 /**
  * 类说明：任务管理 
@@ -67,7 +67,7 @@ public class SysTaskController extends BaseController{
 		if(task!=null){
 			ajax.setState(CommonUtil.NOTPASSERROR);
 			ajax.setContent("此任务已经添加，请勿重复添加!");
-			return JackSonSerializeUtil.ObjectToJson(ajax);
+			return JackSonUtil.ObjectToJson(ajax);
 		}
 		sysTask.setCreateTime(CommonUtil.getNowDate());
 		sysTaskService.saveAndEditTask(sysTask);
@@ -81,7 +81,7 @@ public class SysTaskController extends BaseController{
 		}
 		ajax.setState(CommonUtil.SUCCESS);
 		ajax.setContent("保存成功");
-		return JackSonSerializeUtil.ObjectToJson(ajax);
+		return JackSonUtil.ObjectToJson(ajax);
 	}
 	
 	@RequestMapping(value="/updateTask",method = RequestMethod.POST)
@@ -93,7 +93,7 @@ public class SysTaskController extends BaseController{
 		if(RunStateEnum.RUN.getValue().equals(task.getRunState())){
 			ajax.setState(CommonUtil.NOTPASSERROR);
 			ajax.setContent("运行中的任务不能停止!");
-			return JackSonSerializeUtil.ObjectToJson(ajax);
+			return JackSonUtil.ObjectToJson(ajax);
 		}
 		
 		sysTask.setRunState(RunStateEnum.WAIT.getValue());
@@ -116,7 +116,7 @@ public class SysTaskController extends BaseController{
 		}
 		ajax.setState(CommonUtil.SUCCESS);
 		ajax.setContent("修改成功");
-		return JackSonSerializeUtil.ObjectToJson(ajax);
+		return JackSonUtil.ObjectToJson(ajax);
 	}
 	
 	@RequestMapping(value = "/taskClass", method = RequestMethod.POST)

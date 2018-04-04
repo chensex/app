@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.base.basecontroller.BaseController;
 import com.base.util.CommonAjax;
 import com.base.util.CommonUtil;
-import com.base.util.JackSonSerializeUtil;
+import com.base.util.JackSonUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.pagehelper.PageInfo;
@@ -131,6 +131,6 @@ public class ModelController extends BaseController{
         	ajax.setState(CommonUtil.NOTPASSERROR);
     		ajax.setContent("部署失败");
         }
-        return JackSonSerializeUtil.ObjectToJson(ajax);
+        return JackSonUtil.ObjectToJson(ajax);
     }
 }

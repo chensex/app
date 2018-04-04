@@ -21,7 +21,7 @@ import com.app.service.system.SysRoleService;
 import com.base.basecontroller.BaseController;
 import com.base.util.CommonAjax;
 import com.base.util.CommonUtil;
-import com.base.util.JackSonSerializeUtil;
+import com.base.util.JackSonUtil;
 import com.base.util.ZtreeVO;
 import com.github.pagehelper.PageInfo;
 
@@ -65,7 +65,7 @@ public class SysRoleController extends BaseController{
 		roleService.saveAndEditRole(sysRole);
 		ajax.setState(CommonUtil.SUCCESS);
 		ajax.setContent("保存成功");
-		return JackSonSerializeUtil.ObjectToJson(ajax);
+		return JackSonUtil.ObjectToJson(ajax);
 	}
 	
 	@RequestMapping(value="/updateRole",method = RequestMethod.POST)
@@ -75,7 +75,7 @@ public class SysRoleController extends BaseController{
 		roleService.saveAndEditRole(sysRole);
 		ajax.setState(CommonUtil.SUCCESS);
 		ajax.setContent("修改成功");
-		return JackSonSerializeUtil.ObjectToJson(ajax);
+		return JackSonUtil.ObjectToJson(ajax);
 	}
 	
 	@RequestMapping(value="/grantRole",method = RequestMethod.POST)
@@ -85,7 +85,7 @@ public class SysRoleController extends BaseController{
 		roleService.grantRole(Long.valueOf(request.getParameter("roleId")), request.getParameter("menuIds"));
 		ajax.setState(CommonUtil.SUCCESS);
 		ajax.setContent("授权成功");
-		return JackSonSerializeUtil.ObjectToJson(ajax);
+		return JackSonUtil.ObjectToJson(ajax);
 	}
 	
 	@RequestMapping(value = "/getSysRoleById")
@@ -100,6 +100,6 @@ public class SysRoleController extends BaseController{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("roleId", request.getParameter("roleId"));
 		List<ZtreeVO> menList = roleService.getGrantMenuList(map);
-		return JackSonSerializeUtil.ObjectToJson(menList);
+		return JackSonUtil.ObjectToJson(menList);
 	}
 }

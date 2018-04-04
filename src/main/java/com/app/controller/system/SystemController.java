@@ -22,7 +22,7 @@ import com.base.basecontroller.BaseController;
 import com.base.util.CommonAjax;
 import com.base.util.CommonConstant;
 import com.base.util.CommonUtil;
-import com.base.util.JackSonSerializeUtil;
+import com.base.util.JackSonUtil;
 import com.base.util.RequestToMap;
 import com.base.util.ZtreeVO;
 /**
@@ -83,7 +83,7 @@ public class SystemController extends BaseController{
 				ajax.setContent("登录失败");
 			}
 		}
-		return JackSonSerializeUtil.ObjectToJson(ajax);
+		return JackSonUtil.ObjectToJson(ajax);
 	}
 	
 	/**
@@ -111,7 +111,7 @@ public class SystemController extends BaseController{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", user.getUserId());
 		List<ZtreeVO> menList = sysMenuService.selectMenuListByMap(map);
-		return JackSonSerializeUtil.ObjectToJson(menList);
+		return JackSonUtil.ObjectToJson(menList);
 	}
 	
 	/**

@@ -26,7 +26,7 @@ import com.base.basecontroller.BaseController;
 import com.base.util.Cipher;
 import com.base.util.CommonAjax;
 import com.base.util.CommonUtil;
-import com.base.util.JackSonSerializeUtil;
+import com.base.util.JackSonUtil;
 import com.base.util.MQSendUtil;
 import com.github.pagehelper.PageInfo;
 
@@ -83,7 +83,7 @@ public class SysUserController extends BaseController{
 		userService.saveAndEditUser(sysUser,request.getParameter("roleIds"));
 		ajax.setState(CommonUtil.SUCCESS);
 		ajax.setContent("保存成功");
-		return JackSonSerializeUtil.ObjectToJson(ajax);
+		return JackSonUtil.ObjectToJson(ajax);
 	}
 	
 	@RequestMapping(value="/updateUser",method = RequestMethod.POST)
@@ -94,7 +94,7 @@ public class SysUserController extends BaseController{
 		userService.saveAndEditUser(sysUser,request.getParameter("roleIds"));
 		ajax.setState(CommonUtil.SUCCESS);
 		ajax.setContent("修改成功");
-		return JackSonSerializeUtil.ObjectToJson(ajax);
+		return JackSonUtil.ObjectToJson(ajax);
 	}
 	
 	@RequestMapping(value="/clearUser",method = RequestMethod.POST)
@@ -106,7 +106,7 @@ public class SysUserController extends BaseController{
 		userService.saveAndEditUser(sysUser,null);
 		ajax.setState(CommonUtil.SUCCESS);
 		ajax.setContent("清除成功");
-		return JackSonSerializeUtil.ObjectToJson(ajax);
+		return JackSonUtil.ObjectToJson(ajax);
 	}
 	
 	@RequestMapping(value = "/getAddSysUserById")

@@ -29,7 +29,7 @@ import com.base.basecontroller.BaseController;
 import com.base.util.CommonAjax;
 import com.base.util.CommonConstant;
 import com.base.util.CommonUtil;
-import com.base.util.JackSonSerializeUtil;
+import com.base.util.JackSonUtil;
 import com.github.pagehelper.PageInfo;
 
 @Controller
@@ -124,6 +124,6 @@ public class ProcessController extends BaseController{
         	ajax.setState(CommonUtil.NOTPASSERROR);
     		ajax.setContent("启动失败");
         }
-        return JackSonSerializeUtil.ObjectToJson(ajax);
+        return JackSonUtil.ObjectToJson(ajax);
     }
 }

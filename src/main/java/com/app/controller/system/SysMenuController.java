@@ -19,7 +19,7 @@ import com.app.service.system.SysMenuService;
 import com.base.basecontroller.BaseController;
 import com.base.util.CommonAjax;
 import com.base.util.CommonUtil;
-import com.base.util.JackSonSerializeUtil;
+import com.base.util.JackSonUtil;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -82,7 +82,7 @@ public class SysMenuController extends BaseController{
 		menuService.saveAndEditMenu(sysMenu);
 		ajax.setState(CommonUtil.SUCCESS);
 		ajax.setContent("保存成功");
-		return JackSonSerializeUtil.ObjectToJson(ajax);
+		return JackSonUtil.ObjectToJson(ajax);
 	}
 	
 	@RequestMapping(value="/updateMenu",method = RequestMethod.POST)
@@ -98,7 +98,7 @@ public class SysMenuController extends BaseController{
 		menuService.saveAndEditMenu(sysMenu);
 		ajax.setState(CommonUtil.SUCCESS);
 		ajax.setContent("保存成功");
-		return JackSonSerializeUtil.ObjectToJson(ajax);
+		return JackSonUtil.ObjectToJson(ajax);
 	}
 	
 	@RequestMapping(value = "/getSysMenuById")

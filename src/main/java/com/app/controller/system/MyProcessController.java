@@ -25,7 +25,7 @@ import com.base.basecontroller.BaseController;
 import com.base.util.CommonAjax;
 import com.base.util.CommonConstant;
 import com.base.util.CommonUtil;
-import com.base.util.JackSonSerializeUtil;
+import com.base.util.JackSonUtil;
 import com.github.pagehelper.PageInfo;
 
 @Controller
@@ -112,6 +112,6 @@ public class MyProcessController extends BaseController{
         	ajax.setState(CommonUtil.NOTPASSERROR);
     		ajax.setContent("处理失败");
         }
-        return JackSonSerializeUtil.ObjectToJson(ajax);
+        return JackSonUtil.ObjectToJson(ajax);
     }
 }
