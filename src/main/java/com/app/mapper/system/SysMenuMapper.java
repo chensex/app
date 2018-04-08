@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.app.model.system.SysMenu;
-import com.base.util.ZtreeVO;
+import com.base.model.ZtreeVO;
 
 import tk.mybatis.mapper.common.Mapper;
 /**
@@ -13,8 +13,9 @@ import tk.mybatis.mapper.common.Mapper;
  * @author CHENWEI
  * 2016年9月5日
  */
+@SuppressWarnings("rawtypes")
 public interface SysMenuMapper extends Mapper<SysMenu> {
-	public List<ZtreeVO> queryMenuListByMap(Map<String, Object> map);
+	public List<SysMenu> queryMenuList(Map<String, Object> map);
 	public List<ZtreeVO> queryAllMenuList();
 	public List<SysMenu> queryOptionMenuList();
 	public List<SysMenu> querySysMenuList(Map<String, Object> map);
