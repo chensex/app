@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.app.model.system.SysRole;
-import com.base.util.ZtreeVO;
+import com.base.model.ZtreeVO;
 
 /**
  * 类说明：角色管理

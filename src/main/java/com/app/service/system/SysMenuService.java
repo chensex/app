@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.app.model.system.SysMenu;
-import com.base.util.ZtreeVO;
+import com.base.model.ZtreeVO;
 
 
 /**
@@ -19,7 +19,7 @@ public interface SysMenuService {
 	 * @param map
 	 * @return
 	 */
-	public List<ZtreeVO> selectMenuListByMap(Map<String, Object> map);
+	public List<SysMenu> selectMenuList(Map<String, Object> map);
 	
 	/**
 	 * 获取有效的菜单

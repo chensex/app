@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.app.mapper.system.SysMenuMapper;
 import com.app.model.system.SysMenu;
 import com.app.service.system.SysMenuService;
+import com.base.model.ZtreeVO;
 import com.base.service.impl.BaseServiceImpl;
-import com.base.util.ZtreeVO;
 import com.github.pagehelper.PageHelper;
 
 /**
@@ -25,8 +25,8 @@ public class SysMenuServiceImpl extends BaseServiceImpl implements SysMenuServic
 	@Autowired
 	private SysMenuMapper sysMenuMapper;
 	
-	public List<ZtreeVO> selectMenuListByMap(Map<String, Object> map) {
-		return sysMenuMapper.queryMenuListByMap(map);
+	public List<SysMenu> selectMenuList(Map<String, Object> map) {
+		return sysMenuMapper.queryMenuList(map);
 	}
 
 	//使用配置时间存储

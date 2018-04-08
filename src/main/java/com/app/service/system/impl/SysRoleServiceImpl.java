@@ -12,8 +12,8 @@ import com.app.model.system.SysMenu;
 import com.app.model.system.SysRole;
 import com.app.model.system.SysRoleMenu;
 import com.app.service.system.SysRoleService;
+import com.base.model.ZtreeVO;
 import com.base.service.impl.BaseServiceImpl;
-import com.base.util.ZtreeVO;
 import com.github.pagehelper.PageHelper;
 
 /**
