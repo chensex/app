@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/app/app/sysmenu/uploadFile" method="post" enctype="multipart/form-data">
+<form action="/sysmenu/uploadFile" method="post" enctype="multipart/form-data">
 	<table>
 		<tr>
 			<td>附件</td>

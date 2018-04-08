@@ -34,7 +34,7 @@
 
 	<!-- 添加、修改dialog -->
 	<div id="dlg" class="easyui-dialog" style="width:500px;height:400px;display:none;" closed="true" buttons="#dlg-buttons">
-		<form id="form2" action="<%=request.getContextPath()%>/app/system/saveMenu" method="post">
+		<form id="form2" action="<%=request.getContextPath()%>/system/saveMenu" method="post">
 			<input type="hidden" id="menuId" name="menuId"/>
 			<input type="hidden" id="saveState" name="saveState"/>
 			<table class="t2" align="center" style="width: 94%;height: 100%;margin: 15px;">
@@ -94,7 +94,7 @@
 		$("#menuGrid").datagrid({
 	    	title:"任务信息列表",
 	    	emptyMsg : "没有记录",
-	        url: "<%=request.getContextPath()%>/app/system/sysMenuList",
+	        url: "<%=request.getContextPath()%>/system/sysMenuList",
 	        method: "POST",
 	        rownumbers : true,
 	        singleSelect: true,
@@ -131,7 +131,7 @@
 	function addMenu() {
 		$("#form2").form("clear");
 		$("#saveState").val("add");
-		$("#form2").attr("action", "<%=request.getContextPath()%>/app/system/saveMenu");
+		$("#form2").attr("action", "<%=request.getContextPath()%>/system/saveMenu");
 		$("#dlg").dialog({ 
 			modal : true,
 			top : $(document).scrollTop() + ($(window).height() - 430) * 0.5 
@@ -151,7 +151,7 @@
 		$("#form2").form("clear");
 		$("#saveState").val("update");
 		$("#dlg").dialog({ modal : true, top : $(document).scrollTop() + ($(window).height() - 380) * 0.5 });
-		$.post("<%=request.getContextPath()%>/app/system/getSysMenuById", {
+		$.post("<%=request.getContextPath()%>/system/getSysMenuById", {
 			menuId : row.menuId
 		}, function(data) {
 			$("#menuId").val(data.menuId);
@@ -173,7 +173,7 @@
 		 var saveState = $("#saveState").val();
 		 if(saveState=="add"){
 		 }else if(saveState=="update"){
-			 form.attr("action", "<%=request.getContextPath()%>/app/system/updateMenu");
+			 form.attr("action", "<%=request.getContextPath()%>/system/updateMenu");
 		 }
 		 $.ajax({
 	            url: form.attr("action"),
@@ -197,7 +197,7 @@
 	
 	function updateMenu(){
 		var form = $("#form2");
-		form.attr("action", "<%=request.getContextPath()%>/app/system/updateMenu");
+		form.attr("action", "<%=request.getContextPath()%>/system/updateMenu");
 		 if(!form.form('validate')){
 			 return;
 		 }

@@ -44,7 +44,7 @@ function initDatagrid(){
 	$("#myProcessGrid").datagrid({
     	title:"待办列表",
     	emptyMsg : "没有记录",
-        url: "<%=request.getContextPath()%>/app/system/myProcessList",
+        url: "<%=request.getContextPath()%>/system/myProcessList",
         method: "POST",
         rownumbers : true,
         singleSelect: true,
@@ -69,11 +69,11 @@ function initDatagrid(){
 }
 function edit(val,row,index){
 	var completeUrl = "<a href=\"javascript:void(0)\" onclick=\"javascript:completeTask('"+row.id+"')\">完成任务  </a>";
-	var showUrl = "<a href=\"<%=request.getContextPath()%>/app/system/showTask?processInstanceId="+row.processInstanceId+"\">流程追踪  </a>\t";
+	var showUrl = "<a href=\"<%=request.getContextPath()%>/system/showTask?processInstanceId="+row.processInstanceId+"\">流程追踪  </a>\t";
 	return completeUrl + showUrl;
 }
 function completeTask(taskId){
-	$.post("<%=request.getContextPath()%>/app/system/completeTask", {
+	$.post("<%=request.getContextPath()%>/system/completeTask", {
 		taskId  : taskId
 	}, function(data) {
 		var data = eval( "(" + data + ")" );

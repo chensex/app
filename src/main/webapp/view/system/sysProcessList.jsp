@@ -37,7 +37,7 @@
 	
 	<!-- 添加、修改dialog -->
 	<div id="dlg" class="easyui-dialog" style="width:500px;height:400px;display:none;" closed="true" buttons="#dlg-buttons">
-		<form id="form2" action="<%=request.getContextPath()%>/app/systask/saveTask" method="post">
+		<form id="form2" action="<%=request.getContextPath()%>/systask/saveTask" method="post">
 			<input type="hidden" id="taskId" name="taskId"/>
 			<input type="hidden" id="saveState" name="saveState"/>
 			<table class="t2" align="center" style="width: 94%;height: 100%;margin: 15px;">
@@ -89,7 +89,7 @@ function initDatagrid(){
 	$("#processGrid").datagrid({
     	title:"流程定义列表",
     	emptyMsg : "没有记录",
-        url: "<%=request.getContextPath()%>/app/system/sysProcessList",
+        url: "<%=request.getContextPath()%>/system/sysProcessList",
         method: "POST",
         rownumbers : true,
         singleSelect: true,
@@ -113,12 +113,12 @@ function initDatagrid(){
 }
 function edit(val,row,index){
 	var deleteUrl = "<a href=\"javascript:void(0)\" onclick=\"javascript:deleteProcess('"+row.id+"')\">删除  </a>";
-	var startUrl = "<a href=\"<%=request.getContextPath()%>/app/system/getStartProcess?processDefinitionId="+row.id+"\">启动  </a>\t";
+	var startUrl = "<a href=\"<%=request.getContextPath()%>/system/getStartProcess?processDefinitionId="+row.id+"\">启动  </a>\t";
 	//var startUrl = "<a href=\"javascript:void(0)\" onclick=\"javascript:startProcess('"+row.id+"','"+row.key+"')\">  启动</a>";
 	return deleteUrl + startUrl;
 }
 function deleteProcess(processDefinitionId,processId) {
-	$.post("<%=request.getContextPath()%>/app/system/deleteProcess", {
+	$.post("<%=request.getContextPath()%>/system/deleteProcess", {
 		processDefinitionId : processDefinitionId,
 		processId  : processId
 	}, function(data) {
@@ -126,7 +126,7 @@ function deleteProcess(processDefinitionId,processId) {
 	}, "json");
 }
 function startProcess(processDefinitionId,processKey){
-	$.post("<%=request.getContextPath()%>/app/system/startProcess", {
+	$.post("<%=request.getContextPath()%>/system/startProcess", {
 		processDefinitionId : processDefinitionId,
 		processKey  : processKey
 	}, function(data) {

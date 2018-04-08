@@ -34,7 +34,7 @@
 
 	<!-- 添加、修改dialog -->
 	<div id="dlg" class="easyui-dialog" style="width:500px;height:400px;display:none;" closed="true" buttons="#dlg-buttons">
-		<form id="form2" action="<%=request.getContextPath()%>/app/systask/saveTask" method="post">
+		<form id="form2" action="<%=request.getContextPath()%>/systask/saveTask" method="post">
 			<input type="hidden" id="taskId" name="taskId"/>
 			<input type="hidden" id="saveState" name="saveState"/>
 			<table class="t2" align="center" style="width: 94%;height: 100%;margin: 15px;">
@@ -81,14 +81,14 @@
 	$(function() {
 		initDatagrid();//初始化，dataGrid
 		$('#taskService').combobox({
-	        url:'<%=request.getContextPath()%>/app/system/taskClass',
+	        url:'<%=request.getContextPath()%>/system/taskClass',
 	        editable:false,
 	        valueField:'className',
 	        textField:'value',
 	        onSelect:function(record){
 	            $('#taskMethod').combobox({
 	            	editable:false,
-	                url:'<%=request.getContextPath()%>/app/system/taskMethod?className='+record.className,
+	                url:'<%=request.getContextPath()%>/system/taskMethod?className='+record.className,
 	                valueField:'methodName',
 	                textField:'value'
 	            }).combobox('clear');
@@ -100,7 +100,7 @@
 		$("#taskGrid").datagrid({
 	    	title:"任务信息列表",
 	    	emptyMsg : "没有记录",
-	        url: "<%=request.getContextPath()%>/app/system/sysTaskList",
+	        url: "<%=request.getContextPath()%>/system/sysTaskList",
 	        method: "POST",
 	        rownumbers : true,
 	        singleSelect: true,
@@ -139,7 +139,7 @@
 	function addTask() {
 		$("#form2").form("clear");
 		$("#saveState").val("add");
-		$("#form2").attr("action", "<%=request.getContextPath()%>/app/system/saveTask");
+		$("#form2").attr("action", "<%=request.getContextPath()%>/system/saveTask");
 		$("#dlg").dialog({ 
 			modal : true,
 			top : $(document).scrollTop() + ($(window).height() - 430) * 0.5 
@@ -159,7 +159,7 @@
 		$("#form2").form("clear");
 		$("#saveState").val("update");
 		$("#dlg").dialog({ modal : true, top : $(document).scrollTop() + ($(window).height() - 380) * 0.5 });
-		$.post("<%=request.getContextPath()%>/app/system/selectSysTaskById", {
+		$.post("<%=request.getContextPath()%>/system/selectSysTaskById", {
 			taskId : row.taskId
 		}, function(data) {
 			$("#taskId").val(data.taskId);
@@ -182,7 +182,7 @@
 		 var saveState = $("#saveState").val();
 		 if(saveState=="add"){
 		 }else if(saveState=="update"){
-			 form.attr("action", "<%=request.getContextPath()%>/app/system/updateTask");
+			 form.attr("action", "<%=request.getContextPath()%>/system/updateTask");
 		 }
 		 $.ajax({
 	            url: form.attr("action"),
@@ -206,7 +206,7 @@
 	
 	function updateTask(){
 		var form = $("#form2");
-		form.attr("action", "<%=request.getContextPath()%>/app/system/updateTask");
+		form.attr("action", "<%=request.getContextPath()%>/system/updateTask");
 		 if(!form.form('validate')){
 			 return;
 		 }

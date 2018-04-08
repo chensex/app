@@ -21,7 +21,7 @@
 					<label>任务名称：</label>
 					<input class="easyui-textbox" type="text" id="searchProcessName" name="searchProcessName" /> 
 					<p>
-						<a id="clear" href="<%=request.getContextPath()%>/app/system/start" class="easyui-linkbutton" iconCls="icon-query">查询</a> 
+						<a id="clear" href="<%=request.getContextPath()%>/system/start" class="easyui-linkbutton" iconCls="icon-query">查询</a> 
 					</p>
 				</form>
 				
@@ -43,7 +43,7 @@ function initDatagrid(){
 	$("#hisTaskGrid").datagrid({
     	title:"历史任务列表",
     	emptyMsg : "没有记录",
-        url: "<%=request.getContextPath()%>/app/system/hisTaskList",
+        url: "<%=request.getContextPath()%>/system/hisTaskList",
         method: "POST",
         rownumbers : true,
         singleSelect: true,
@@ -64,7 +64,7 @@ function initDatagrid(){
     });
 }
 function edit(val,row,index){
-	var showUrl = "<a href=\"<%=request.getContextPath()%>/app/system/showTask?processInstanceId="+row.processInstanceId+"\">流程追踪  </a>\t";
+	var showUrl = "<a href=\"<%=request.getContextPath()%>/system/showTask?processInstanceId="+row.processInstanceId+"\">流程追踪  </a>\t";
 	//var showUrl = "<a href=\"javascript:void(0)\" onclick=\"javascript:showTask('"+row.processInstanceId+"')\">流程追踪</a>";
 	return showUrl;
 }

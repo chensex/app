@@ -21,7 +21,7 @@
 					<label>流程名称：</label>
 					<input class="easyui-textbox" type="text" id="searchModelName" name="searchModelName" /> 
 					<p>
-						<a id="clear" href="<%=request.getContextPath()%>/app/system/addModel" class="easyui-linkbutton" iconCls="icon-add">创建模型</a> 
+						<a id="clear" href="<%=request.getContextPath()%>/system/addModel" class="easyui-linkbutton" iconCls="icon-add">创建模型</a> 
 					</p>
 				</form>
 				
@@ -43,7 +43,7 @@ function initDatagrid(){
 	$("#modelGrid").datagrid({
     	title:"模版信息列表",
     	emptyMsg : "没有记录",
-        url: "<%=request.getContextPath()%>/app/system/sysModelList",
+        url: "<%=request.getContextPath()%>/system/sysModelList",
         method: "POST",
         rownumbers : true,
         singleSelect: true,
@@ -74,7 +74,7 @@ function updateModel(modelId) {
 	window.open("<%=request.getContextPath()%>/modeler.html?modelId="+modelId);
 }
 function deploy(modelId){
-	$.post("<%=request.getContextPath()%>/app/system/deploy", {
+	$.post("<%=request.getContextPath()%>/system/deploy", {
 		modelId  : modelId
 	}, function(data) {
 		var data = eval( "(" + data + ")" );

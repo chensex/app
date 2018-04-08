@@ -15,7 +15,7 @@
 	<div class="easyui-layout" fit="true">
 		<div region="center" border="false" style="padding:5px 5px">
 			<div class="easyui-panel" title="流程表单>> 新增流程" fit="true" style="padding-top: 50px;">
-				<form id="form" action="<%=request.getContextPath()%>/app/system/create" method="post">
+				<form id="form" action="<%=request.getContextPath()%>/system/create" method="post">
 					
 					<table class="t2" align="center">
 						<c:forEach items="${formProperty}" var="pro">
@@ -46,7 +46,7 @@ function submit(){
 }
 
 function back(){
-	window.location.href="<%=request.getContextPath()%>/app/system/sysModelList";
+	window.location.href="<%=request.getContextPath()%>/system/sysModelList";
 }
 </script>
 </html>

@@ -36,7 +36,7 @@
 
 	<!-- 添加、修改dialog -->
 	<div id="dlg" class="easyui-dialog" style="width:500px;height:400px;display:none;" closed="true" buttons="#dlg-buttons">
-		<form id="form2" action="<%=request.getContextPath()%>/app/system/saveMenu" method="post">
+		<form id="form2" action="<%=request.getContextPath()%>/system/saveMenu" method="post">
 			<input type="hidden" id="userId" name="userId"/>
 			<input type="hidden" id="roleIds" name="roleIds"/>
 			<input type="hidden" id="saveState" name="saveState"/>
@@ -102,7 +102,7 @@
 		$("#userGrid").datagrid({
 	    	title:"用户信息列表",
 	    	emptyMsg : "没有记录",
-	        url: "<%=request.getContextPath()%>/app/system/sysUserList",
+	        url: "<%=request.getContextPath()%>/system/sysUserList",
 	        method: "POST",
 	        rownumbers : true,
 	        singleSelect: true,
@@ -147,9 +147,9 @@
 	function addUser() {
 		$("#form2").form("clear");
 		$("#saveState").val("add");
-		$("#form2").attr("action", "<%=request.getContextPath()%>/app/system/saveUser");
+		$("#form2").attr("action", "<%=request.getContextPath()%>/system/saveUser");
 		$("#dlg").dialog({ modal : true,top : $(document).scrollTop() + ($(window).height() - 430) * 0.5 });//弹出框位置，居中，430表示弹出框的高度
-		$.post("<%=request.getContextPath()%>/app/system/getAddSysUserById",function(data) {
+		$.post("<%=request.getContextPath()%>/system/getAddSysUserById",function(data) {
 			var str = "";
 			for(var i =0;i<data.length;i++){
 				var obj = data[i];
@@ -172,7 +172,7 @@
 		$("#form2").form("clear");
 		$("#saveState").val("update");
 		$("#dlg").dialog({ modal : true, top : $(document).scrollTop() + ($(window).height() - 380) * 0.5 });
-		$.post("<%=request.getContextPath()%>/app/system/getSysUserById", {
+		$.post("<%=request.getContextPath()%>/system/getSysUserById", {
 			userId : row.userId
 		}, function(data) {
 			$("#userId").val(data.userId);
@@ -218,7 +218,7 @@
 		 var saveState = $("#saveState").val();
 		 if(saveState=="add"){
 		 }else if(saveState=="update"){
-			 form.attr("action", "<%=request.getContextPath()%>/app/system/updateUser");
+			 form.attr("action", "<%=request.getContextPath()%>/system/updateUser");
 		 }
 		 $.ajax({
 	            url: form.attr("action"),
@@ -246,7 +246,7 @@
 			$.messager.alert("提示", "请选择一条数据！", "info");
 			return;
 		}
-		 $.post('<%=request.getContextPath()%>/app/system/clearUser',{
+		 $.post('<%=request.getContextPath()%>/system/clearUser',{
 			 userId:row.userId
 			 },function(data){
 					var data = eval( "(" + data + ")" );
