@@ -31,7 +31,7 @@ import com.base.util.MQSendUtil;
 import com.github.pagehelper.PageInfo;
 
 @Controller
-@RequestMapping(value="/app/system")
+@RequestMapping(value="/system")
 public class SysUserController extends BaseController{
 	
 	@SuppressWarnings("unused")
@@ -46,8 +46,8 @@ public class SysUserController extends BaseController{
 	@Resource(name="testDestination")
 	private Destination testDestination;
 	
-	@Autowired
-	private JmsTemplate jmsTemplate;
+	//@Autowired
+	//private JmsTemplate jmsTemplate;
 	
 	@RequestMapping(value="/sysUserList",method=RequestMethod.GET)
 	public ModelAndView sysUserList(HttpServletRequest request,HttpServletResponse response){
@@ -66,9 +66,9 @@ public class SysUserController extends BaseController{
 		if(req.getParameter("rows") != null){
 			pageSize = Integer.valueOf(req.getParameter("rows"));
 		}
-		Map<String, Object> mqMap = new HashMap<String,Object>();
-		mqMap.put("test", "testDestination");
-		MQSendUtil.sendMessage(jmsTemplate, testDestination, mqMap);
+		//Map<String, Object> mqMap = new HashMap<String,Object>();
+		//mqMap.put("test", "testDestination");
+		//MQSendUtil.sendMessage(jmsTemplate, testDestination, mqMap);
 		debug("Controller分页日志:page=" + page + "pageSize=" + pageSize);
 		return pageToJson(new PageInfo<SysMenu>(userService.selectSysUserList(
 			getRequestParameterAsMap(req), page, pageSize)));

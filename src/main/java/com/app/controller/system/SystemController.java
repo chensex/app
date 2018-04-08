@@ -1,5 +1,6 @@
 package com.app.controller.system;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,24 +15,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.app.model.system.SysMenu;
 import com.app.model.system.SysUser;
 import com.app.service.system.SysMenuService;
 import com.app.service.system.SysUserService;
 import com.base.annotation.HandleMethodLog;
 import com.base.basecontroller.BaseController;
+import com.base.model.ZtreeVO;
+import com.base.util.BuildTree;
 import com.base.util.CommonAjax;
 import com.base.util.CommonConstant;
 import com.base.util.CommonUtil;
 import com.base.util.JackSonUtil;
 import com.base.util.RequestToMap;
-import com.base.util.ZtreeVO;
 /**
  * 类说明：系统管理
  * @author CHENWEI
  * 2016年8月25日
  */
 @Controller
-@RequestMapping(value="/app/system")
+@RequestMapping(value="/system")
 public class SystemController extends BaseController{
 	
 	
@@ -92,10 +95,9 @@ public class SystemController extends BaseController{
 	 * @return
 	 * 2016年8月28日
 	 */
-	@RequestMapping(value="/main",method=RequestMethod.POST)
+	@RequestMapping(value="/main",method=RequestMethod.GET)
 	public ModelAndView main(HttpServletRequest request,HttpServletResponse response){
-		ModelAndView mv = new ModelAndView("main");
-		return mv;
+		return new ModelAndView("main");
 	}
 	
 	/**
@@ -104,14 +106,27 @@ public class SystemController extends BaseController{
 	 * @return
 	 * 2016年8月28日
 	 */
-	@RequestMapping(value="/getMenuList",method=RequestMethod.POST,produces="text/html;charset=UTF-8")
+	@RequestMapping(value="/getMenuList",method=RequestMethod.POST)
 	@ResponseBody
-	public String getMenuList(HttpServletRequest request,HttpServletResponse response){
+	public Object getMenuList(HttpServletRequest request,HttpServletResponse response){
 		SysUser user = (SysUser) request.getSession().getAttribute(CommonConstant.SESSION_USER);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", user.getUserId());
-		List<ZtreeVO> menList = sysMenuService.selectMenuListByMap(map);
-		return JackSonUtil.ObjectToJson(menList);
+		List<SysMenu> menList = sysMenuService.selectMenuList(map);
+		CommonAjax<Object> ajax = new CommonAjax<Object>();
+		List<ZtreeVO<SysMenu>> trees = new ArrayList<ZtreeVO<SysMenu>>();
+		for (SysMenu sysMenu : menList) {
+			ZtreeVO<SysMenu> tree = new ZtreeVO<SysMenu>();
+			tree.setId(Integer.parseInt(String.valueOf(sysMenu.getMenuId())));
+			tree.setpId(Integer.parseInt(String.valueOf(sysMenu.getParentId())));
+			tree.setName(sysMenu.getMenuName());
+			tree.setOpenUrl(sysMenu.getMenuUrl());
+			trees.add(tree);
+		}
+		List<ZtreeVO<SysMenu>> children = BuildTree.build(trees);
+		ajax.setState(CommonUtil.SUCCESS);
+		ajax.setObject(children);
+		return ajax;
 	}
 	
 	/**

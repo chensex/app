@@ -28,7 +28,7 @@ import com.github.pagehelper.PageInfo;
  * 2016年9月1日
  */
 @Controller
-@RequestMapping(value="/app/system")
+@RequestMapping(value="/system")
 public class SysMenuController extends BaseController{
 	@Autowired
 	private SysMenuService menuService;

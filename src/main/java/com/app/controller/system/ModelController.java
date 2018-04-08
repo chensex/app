@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.pagehelper.PageInfo;
 
 @Controller
-@RequestMapping(value="/app/system")
+@RequestMapping(value="/system")
 public class ModelController extends BaseController{
 	@Autowired
 	private RepositoryService repositoryService;

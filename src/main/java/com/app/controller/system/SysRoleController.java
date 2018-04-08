@@ -19,14 +19,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.app.model.system.SysRole;
 import com.app.service.system.SysRoleService;
 import com.base.basecontroller.BaseController;
+import com.base.model.ZtreeVO;
 import com.base.util.CommonAjax;
 import com.base.util.CommonUtil;
 import com.base.util.JackSonUtil;
-import com.base.util.ZtreeVO;
 import com.github.pagehelper.PageInfo;
 
 @Controller
-@RequestMapping(value="/app/system")
+@RequestMapping(value="/system")
 public class SysRoleController extends BaseController{
 	
 	@SuppressWarnings("unused")

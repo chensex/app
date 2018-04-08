@@ -37,7 +37,7 @@ import com.base.util.CommonConstant;
 import com.github.pagehelper.PageInfo;
 
 @Controller
-@RequestMapping(value="/app/system") 
+@RequestMapping(value="/system") 
 public class HisTaskController extends BaseController{
 	
 	@Autowired  

@@ -33,7 +33,7 @@ import com.base.util.JackSonUtil;
 import com.github.pagehelper.PageInfo;
 
 @Controller
-@RequestMapping(value="/app/system")
+@RequestMapping(value="/system")
 public class ProcessController extends BaseController{
 	@Autowired
 	private RepositoryService repositoryService;
