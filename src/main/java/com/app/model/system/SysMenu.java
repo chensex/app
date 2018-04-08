@@ -62,6 +62,30 @@ public class SysMenu extends BaseModel{
      * 打开窗口(节点)
      */
     private String target;
+    
+    /**
+     * 节点图标
+     */
+    @Column(name = "icon")
+    private String icon;
+    
+    /**
+     * 节点打开图标
+     */
+    @Column(name = "icon_open")
+    private String iconOpen;
+    
+    /**
+     * 节点关闭图标
+     */
+    @Column(name = "icon_close")
+    private String iconClose;
+    
+    /**
+     * 节点个性化图标
+     */
+    @Column(name = "icon_skin")
+    private String iconkin;
 
     @Transient
     private List<SysMenu> sysMenus;
@@ -205,5 +229,37 @@ public class SysMenu extends BaseModel{
 
 	public void setLevel(Integer level) {
 		this.level = level;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public String getIconOpen() {
+		return iconOpen;
+	}
+
+	public void setIconOpen(String iconOpen) {
+		this.iconOpen = iconOpen;
+	}
+
+	public String getIconClose() {
+		return iconClose;
+	}
+
+	public void setIconClose(String iconClose) {
+		this.iconClose = iconClose;
+	}
+
+	public String getIconkin() {
+		return iconkin;
+	}
+
+	public void setIconkin(String iconkin) {
+		this.iconkin = iconkin;
 	}
 }
