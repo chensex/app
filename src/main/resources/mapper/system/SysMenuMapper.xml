@@ -15,18 +15,27 @@
     <result column="is_open" property="isOpen" jdbcType="VARCHAR" />
     <result column="target" property="target" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="icon_open" property="iconOpen" jdbcType="VARCHAR" />
+    <result column="icon_close" property="iconClose" jdbcType="VARCHAR" />
+    <result column="icon_skin" property="iconSkin" jdbcType="VARCHAR" />
   </resultMap>
- <select id="queryMenuListByMap" parameterType="java.util.Map" resultType="com.base.util.ZtreeVO">
+  
+  <select id="queryMenuList" parameterType="java.util.Map" resultMap="BaseResultMap">
 		SELECT
 			DISTINCT
-			d.menu_id id,
-			d.parent_id pId,
-			d. LEVEL 'level',
-			d.menu_name name,
-			d.menu_url openUrl,
-			d.is_open open,
+			d.menu_id,
+			d.parent_id,
+			d. LEVEL,
+			d.menu_name,
+			d.menu_url,
+			d.is_open,
 			d.sort,
-			d.target
+			d.target,
+			d.icon,
+			d.icon_open,
+			d.icon_close,
+			d.icon_skin
 		FROM
 			sys_user a,
 			sys_user_role b,
@@ -42,7 +51,7 @@
 		</if>
   </select>
   
-  <select id="queryAllMenuList" resultType="com.base.util.ZtreeVO">
+  <select id="queryAllMenuList" resultType="com.base.model.ZtreeVO">
 		SELECT
 			a.menu_id id,
 			a.parent_id pId,
