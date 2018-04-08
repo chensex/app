@@ -57,16 +57,16 @@
 		
        <mvc:default-servlet-handler />
        <mvc:interceptors>
+       	<!-- <mvc:interceptor>
+       		<mvc:mapping path="/"/>
+       		<bean class="com.app.intercepters.AppIntercepter"></bean>
+       	</mvc:interceptor> -->
        	<mvc:interceptor>
-       		<mvc:mapping path="/app/**"/>
+       		<mvc:mapping path="/system/**"/>
        		<bean class="com.app.intercepters.AppIntercepter"></bean>
        	</mvc:interceptor>
        	<mvc:interceptor>
-       		<mvc:mapping path="/app/system/**"/>
-       		<bean class="com.app.intercepters.AppIntercepter"></bean>
-       	</mvc:interceptor>
-       	<mvc:interceptor>
-       		<mvc:mapping path="/app/service/**"/>
+       		<mvc:mapping path="/service/**"/>
        		<bean class="com.app.intercepters.AppIntercepter"></bean>
        	</mvc:interceptor>
        	<mvc:interceptor>
