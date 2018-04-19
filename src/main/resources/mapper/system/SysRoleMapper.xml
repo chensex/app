@@ -39,4 +39,14 @@
 		WHERE
 			a.user_id = #{userId}
   </select>
+  
+    <select id="queryRoleNameByUserId" parameterType="java.lang.Long" resultType="java.lang.String">
+		SELECT
+			b.role_name
+		FROM
+			sys_user_role a
+		LEFT JOIN sys_role b ON a.role_id = b.role_id
+		WHERE
+			a.user_id = #{userId}
+  </select>
 </mapper>

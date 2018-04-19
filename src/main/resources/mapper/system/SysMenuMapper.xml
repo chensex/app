@@ -51,6 +51,23 @@
 		</if>
   </select>
   
+  <select id="queryMenuNameList" parameterType="java.util.Map" resultType="java.lang.String">
+			d.menu_name AS menuName
+		FROM
+			sys_user a,
+			sys_user_role b,
+			sys_role_menu c,
+			sys_menu d
+		WHERE
+			a.user_id = b.user_id
+		AND b.role_id = c.role_id
+		AND c.menu_id = d.menu_id
+		AND d.state = 1
+		<if test="userId!=null and userId!=''">
+			AND a.user_id = #{userId}
+		</if>
+  </select>
+  
   <select id="queryAllMenuList" resultType="com.base.model.ZtreeVO">
 		SELECT
 			a.menu_id id,
