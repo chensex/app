@@ -16,6 +16,7 @@
 					if(data.state==1){
 						window.location.href = "<%=request.getContextPath()%>/system/main";
 					}else{
+						alert(data.content);
 						$("#tip").html(data.content);
 					}
 			});
