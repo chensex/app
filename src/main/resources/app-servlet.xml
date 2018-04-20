@@ -56,11 +56,11 @@
 		</mvc:annotation-driven>
 		
        <mvc:default-servlet-handler />
-       <mvc:interceptors>
-       	<!-- <mvc:interceptor>
+       <!-- <mvc:interceptors>
+       	<mvc:interceptor>
        		<mvc:mapping path="/"/>
        		<bean class="com.app.intercepters.AppIntercepter"></bean>
-       	</mvc:interceptor> -->
+       	</mvc:interceptor>
        	<mvc:interceptor>
        		<mvc:mapping path="/system/**"/>
        		<bean class="com.app.intercepters.AppIntercepter"></bean>
@@ -73,7 +73,7 @@
        		<mvc:mapping path="/app/editor/**"/>
        		<bean class="com.app.intercepters.AppIntercepter"></bean>
        	</mvc:interceptor>
-       </mvc:interceptors>
+       </mvc:interceptors> -->
 
 		<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 			<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
