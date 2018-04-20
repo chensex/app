@@ -99,6 +99,7 @@ public class SysRoleController extends BaseController{
 	public String grantMenuList(HttpServletRequest request,HttpServletResponse response){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("roleId", request.getParameter("roleId"));
+		map.put("state", "1");
 		List<ZtreeVO> menList = roleService.getGrantMenuList(map);
 		return JackSonUtil.ObjectToJson(menList);
 	}

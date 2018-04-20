@@ -55,4 +55,15 @@ public class SysMenuServiceImpl extends BaseServiceImpl implements SysMenuServic
 			sysMenuMapper.updateByPrimaryKeySelective(sysMenu);
 		}
 	}
+
+	@Override
+	public List<String> selectMenuNameList(Map<String, Object> map) {
+		return sysMenuMapper.queryMenuNameList(map);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List<ZtreeVO> queryAllMenuList(Map<String, Object> map) {
+		return sysMenuMapper.queryAllMenuList(map);
+	}
 }

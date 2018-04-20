@@ -22,6 +22,15 @@ public interface SysMenuService {
 	public List<SysMenu> selectMenuList(Map<String, Object> map);
 	
 	/**
+	 * 查询所有菜单 state = 1 查询有效的；state = 0 查询全部的
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public List<ZtreeVO> queryAllMenuList(Map<String, Object> map);
+	
+	public List<String> selectMenuNameList(Map<String, Object> map);
+	
+	/**
 	 * 获取有效的菜单
 	 * @param map
 	 * @return

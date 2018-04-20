@@ -35,4 +35,10 @@ public interface SysRoleMapper extends Mapper<SysRole> {
 	 * @return
 	 */
 	public List<SysRole> queryRoleByUserId(Long userId);
+	/**
+	 * 根据用户ID查询角色(返回String)
+	 * @param roleId
+	 * @return
+	 */
+	public List<String> queryRoleNameByUserId(Long userId);
 }

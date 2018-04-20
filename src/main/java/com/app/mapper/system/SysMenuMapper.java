@@ -16,7 +16,12 @@ import tk.mybatis.mapper.common.Mapper;
 @SuppressWarnings("rawtypes")
 public interface SysMenuMapper extends Mapper<SysMenu> {
 	public List<SysMenu> queryMenuList(Map<String, Object> map);
-	public List<ZtreeVO> queryAllMenuList();
+	public List<String> queryMenuNameList(Map<String, Object> map);
+	/**
+	 * 查询所有菜单 state = 1 查询有效的；state = 0 查询全部的
+	 * @return
+	 */
+	public List<ZtreeVO> queryAllMenuList(Map<String, Object> map);
 	public List<SysMenu> queryOptionMenuList();
 	public List<SysMenu> querySysMenuList(Map<String, Object> map);
 	/**

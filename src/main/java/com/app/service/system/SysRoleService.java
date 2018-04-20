@@ -51,6 +51,13 @@ public interface SysRoleService {
 	 */
 	public List<SysRole> selectRoleByUserId(Long userId);
 	
+	/**
+	 * 根据用户ID查询角色(返回String)
+	 * @param roleId
+	 * @return
+	 */
+	public List<String> selectRoleNameByUserId(Long userId);
+	
 	
 	public List<ZtreeVO> getGrantMenuList(Map<String, Object> map);
 	

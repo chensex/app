@@ -59,7 +59,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl implements SysRoleServic
 	}
 
 	public List<ZtreeVO> getGrantMenuList(Map<String, Object> map) {
-		List<ZtreeVO> list = menuMapper.queryAllMenuList();
+		List<ZtreeVO> list = menuMapper.queryAllMenuList(map);
 		List<SysMenu> menuList = menuMapper.queryGrantMenuList(map);
 		for (ZtreeVO vo : list) {
 			for (SysMenu sysMenu : menuList) {
@@ -84,5 +84,10 @@ public class SysRoleServiceImpl extends BaseServiceImpl implements SysRoleServic
 				roleMenuMapper.insertSelective(saveRoleMenu);
 			}
 		}
+	}
+
+	@Override
+	public List<String> selectRoleNameByUserId(Long userId) {
+		return mapper.queryRoleNameByUserId(userId);
 	}
 }
