@@ -18,8 +18,12 @@
 					<label>任务名称：</label>
 					<input class="easyui-textbox" type="text" id="searchTaskName" name="searchTaskName" /> 
 					<p>
-						<a id="query" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadGrid()">查询</a> 
-						<a id="clear" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearForm()">重置</a> 
+						<shiro:hasPermission name="system:task:search">
+							<a id="query" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadGrid()">查询</a> 
+						</shiro:hasPermission>
+						<shiro:hasPermission name="system:task:clear">
+							<a id="clear" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearForm()">重置</a> 
+						</shiro:hasPermission>
 					</p>
 				</form>
 				

@@ -45,9 +45,18 @@
 							<td style="width: 70%;" align="left"><input class="easyui-numberbox" type="text" value="${sysMenu.sort}" data-options="required:true" maxlength="20" id="sort" name="sort" style="width: 40%;"/></td>
 						</tr>
 						<tr>
+							<td style="width: 30%;" align="right"><label for="menuType">菜单类别：</label></td>
+							<td style="width: 70%;" align="left">
+							<select class="easyui-combobox" id="menuType" name="menuType" style="width: 200px;" data-options="required:true" editable="false">
+								<option value="0" <c:if test="${sysMenu.menuType==0}">selected="selected"</c:if> >菜单</option>
+								<option value="1" <c:if test="${sysMenu.menuType==1}">selected="selected"</c:if> >功能</option>
+							</select>
+							</td>
+						</tr>
+						<tr>
 							<td style="width: 30%;" align="right"><label for="state">状态：</label></td>
 							<td style="width: 70%;" align="left">
-							<select class="easyui-combobox" id="state" name="state" style="width: 200px;" value="${sysMenu.state}" data-options="required:true" editable="false">
+							<select class="easyui-combobox" id="state" name="state" style="width: 200px;" data-options="required:true" editable="false">
 								<option value="1" <c:if test="${sysMenu.state==1}">selected="selected"</c:if> >正常</option>
 								<option value="0" <c:if test="${sysMenu.state==0}">selected="selected"</c:if> >禁用</option>
 							</select>
@@ -78,6 +87,7 @@ function addMenu(){
 	$("#menuName").textbox("setValue", null);
 	$("#menuUrl").textbox("setValue", null);
 	$("#sort").textbox("setValue", null);
+	$("#menuType").combobox("setValue", 0);
 	$("#state").combobox("setValue", 1);
 	$("#isOpen").combobox("setValue", "true");
 }

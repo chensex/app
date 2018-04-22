@@ -65,8 +65,6 @@ public class AuthorityRealm extends AuthorizingRealm{
 		
 		SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(loginName, password,getName());
 		
-		
-		
 		ServletRequestAttributes ra= (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 		ra.getRequest().getSession().setAttribute(CommonConstant.SESSION_USER, user);
 		return simpleAuthenticationInfo;

@@ -48,13 +48,15 @@
 		AND b.role_id = c.role_id
 		AND c.menu_id = d.menu_id
 		AND d.state = 1
+		AND d.menu_type = 0
 		<if test="userId!=null and userId!=''">
 			AND a.user_id = #{userId}
 		</if>
   </select>
   
   <select id="queryMenuNameList" parameterType="java.util.Map" resultType="java.lang.String">
-			d.menu_name AS menuName
+		SELECT	
+			d.menu_url AS menuName
 		FROM
 			sys_user a,
 			sys_user_role b,
@@ -65,6 +67,7 @@
 		AND b.role_id = c.role_id
 		AND c.menu_id = d.menu_id
 		AND d.state = 1
+		AND d.menu_type = 1
 		<if test="userId!=null and userId!=''">
 			AND a.user_id = #{userId}
 		</if>
