@@ -1,5 +1,7 @@
 package com.app.service.system.impl;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +32,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl implements SysMenuServic
 	}
 
 	//使用配置时间存储
-	@Cacheable("selectOptionMenuList")
+	/*@Cacheable("selectOptionMenuList")*/
 	public List<SysMenu> selectOptionMenuList() {
 		return sysMenuMapper.queryOptionMenuList();
 	}
@@ -48,21 +50,59 @@ public class SysMenuServiceImpl extends BaseServiceImpl implements SysMenuServic
 		return sysMenuMapper.queryMenuByMenuId(menuId);
 	}
 
-	public void saveAndEditMenu(SysMenu sysMenu) {
-		if(sysMenu.getMenuId()==null){
-			sysMenuMapper.insertSelective(sysMenu);
+	public Map<String, Object> saveAndEditMenu(SysMenu sysMenu) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(sysMenu.getMenuUrl() != null && sysMenu.getMenuUrl() !=""){
+			
+			SysMenu menu = new SysMenu();
+			menu.setMenuUrl(sysMenu.getMenuUrl());
+			menu = sysMenuMapper.selectOne(menu);
+			
+			if(sysMenu.getMenuId()==null){
+				if(menu == null){
+					sysMenu.setCreateTime(new Date());
+					sysMenu.setTarget("_self");
+					sysMenuMapper.insertSelective(sysMenu);
+					map.put("state", "1");
+				}else{
+					map.put("state", "0");
+				}
+			}else{
+				SysMenu editMenu = sysMenuMapper.selectByPrimaryKey(sysMenu.getMenuId());
+				if(editMenu.getMenuUrl().equals(sysMenu.getMenuUrl())){
+					sysMenuMapper.updateByPrimaryKeySelective(sysMenu);
+					map.put("state", "1");
+				}else{
+					if(menu == null){
+						sysMenuMapper.updateByPrimaryKeySelective(sysMenu);
+						map.put("state", "1");
+					}else{
+						map.put("state", "0");
+					}
+				}
+				
+			}
 		}else{
-			sysMenuMapper.updateByPrimaryKeySelective(sysMenu);
+			if(sysMenu.getMenuId()==null){
+				sysMenu.setCreateTime(new Date());
+				sysMenu.setTarget("_self");
+				sysMenuMapper.insertSelective(sysMenu);
+				map.put("state", "1");
+			}else{
+				sysMenuMapper.updateByPrimaryKeySelective(sysMenu);
+				map.put("state", "1");
+			}
 		}
+		return map;
 	}
 
-	@Override
 	public List<String> selectMenuNameList(Map<String, Object> map) {
 		return sysMenuMapper.queryMenuNameList(map);
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Override
 	public List<ZtreeVO> queryAllMenuList(Map<String, Object> map) {
 		return sysMenuMapper.queryAllMenuList(map);
 	}

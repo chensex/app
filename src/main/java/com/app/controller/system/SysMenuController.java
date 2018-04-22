@@ -39,8 +39,8 @@ import com.github.pagehelper.PageInfo;
 public class SysMenuController extends BaseController{
 	@Autowired
 	private SysMenuService sysMenuService;
-	@Autowired
-	private RedisTemplate<String, Object> redisTemplate;
+	//@Autowired
+	//private RedisTemplate<String, Object> redisTemplate;
 	
 	@RequestMapping(value="/sysMenuInit",method=RequestMethod.GET)
 	public ModelAndView sysMenuInit(HttpServletRequest request,HttpServletResponse response){
@@ -62,7 +62,26 @@ public class SysMenuController extends BaseController{
 	
 	@RequestMapping(value="/addMenu",method=RequestMethod.GET)
 	public ModelAndView addMenu(HttpServletRequest request,HttpServletResponse response){
-		return new ModelAndView("system/addMenu");
+		ModelAndView mv = new ModelAndView("system/addMenu");
+		Long menuId = Long.valueOf(request.getParameter("menuId"));
+		SysMenu sysMenu = null;
+		if(menuId==0){
+			sysMenu = new SysMenu();
+			sysMenu.setMenuName("菜单管理");
+			sysMenu.setIsOpen("true");
+			sysMenu.setState(1);
+			sysMenu.setLevel(0);
+			sysMenu.setSort(0);
+			sysMenu.setParentId(0l);
+			sysMenu.setMenuId(0l);
+		}else{
+			sysMenu = sysMenuService.selectMenuByMenuId(menuId);
+			if(sysMenu.getLevel()==1){
+				sysMenu.setParentMenuName("菜单管理");
+			}
+		}
+		mv.addObject("sysMenu", sysMenu);
+		return mv;
 	}
 	
 	@RequestMapping(value="/sysMenuList",method=RequestMethod.GET)
@@ -86,10 +105,10 @@ public class SysMenuController extends BaseController{
 		debug("Controller分页日志:page=" + page + "pageSize=" + pageSize);
 		
 		//自定义时间存储
-		if(redisTemplate.opsForValue().get("test") == null) {
+		/*if(redisTemplate.opsForValue().get("test") == null) {
 			//从数据库读取 并放入redis
 			redisTemplate.opsForValue().set("test", "test",1,TimeUnit.HOURS);//存储一个小时
-		}
+		}*/
 		
 		return pageToJson(new PageInfo<SysMenu>(sysMenuService.selectSysMenuList(
 			getRequestParameterAsMap(req), page, pageSize)));
@@ -99,34 +118,14 @@ public class SysMenuController extends BaseController{
 	@ResponseBody
 	public String saveMenu(SysMenu sysMenu){
 		CommonAjax<SysMenu> ajax = new CommonAjax<SysMenu>();
-		sysMenu.setCreateTime(new Date());
-		sysMenu.setTarget("_self");
-		sysMenu.setSort(sysMenuService.selectMaxSort()+1);
-		if(sysMenu.getParentId()!=0){
-			SysMenu menu = sysMenuService.selectMenuByMenuId(sysMenu.getParentId());
-			sysMenu.setLevel(menu.getLevel()+1);
-		}else{
-			sysMenu.setLevel(1);
+		Map<String, Object> map = sysMenuService.saveAndEditMenu(sysMenu);
+		if(map.get("state").equals("1")){
+			ajax.setState(CommonUtil.SUCCESS);
+			ajax.setContent("保存成功");
+		}else {
+			ajax.setState(CommonUtil.NOTPASSERROR);
+			ajax.setContent("菜单重复");
 		}
-		sysMenuService.saveAndEditMenu(sysMenu);
-		ajax.setState(CommonUtil.SUCCESS);
-		ajax.setContent("保存成功");
-		return JackSonUtil.ObjectToJson(ajax);
-	}
-	
-	@RequestMapping(value="/updateMenu",method = RequestMethod.POST)
-	@ResponseBody
-	public String updateMenu(SysMenu sysMenu){
-		CommonAjax<SysMenu> ajax = new CommonAjax<SysMenu>();
-		if(sysMenu.getParentId()!=0){
-			SysMenu paMenu = sysMenuService.selectMenuByMenuId(sysMenu.getParentId());
-			sysMenu.setLevel(paMenu.getLevel()+1);
-		}else{
-			sysMenu.setLevel(1);
-		}
-		sysMenuService.saveAndEditMenu(sysMenu);
-		ajax.setState(CommonUtil.SUCCESS);
-		ajax.setContent("保存成功");
 		return JackSonUtil.ObjectToJson(ajax);
 	}
 	
@@ -163,5 +162,17 @@ public class SysMenuController extends BaseController{
 		ajax.setState(CommonUtil.SUCCESS);
 		ajax.setObject(children);
 		return ajax;
+	}
+	/**
+	 * 
+	 * 方法说明：根据主键查询菜单
+	 * @author CHENWEI
+	 * @return
+	 * 2018年4月21日
+	 */
+	@RequestMapping(value="/querySysMenuById",method=RequestMethod.POST)
+	@ResponseBody
+	public SysMenu querySysMenuById(Long menuId){
+		return sysMenuService.selectMenuByMenuId(menuId);
 	}
 }

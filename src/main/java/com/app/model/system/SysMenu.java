@@ -36,6 +36,12 @@ public class SysMenu extends BaseModel{
      */
     @Column(name = "parent_id")
     private Long parentId;
+    
+    /**
+     * 父级菜单名称
+     */
+    @Transient
+    private String parentMenuName;
 
     /**
      * 创建时间
@@ -261,5 +267,13 @@ public class SysMenu extends BaseModel{
 
 	public void setIconkin(String iconkin) {
 		this.iconkin = iconkin;
+	}
+
+	public String getParentMenuName() {
+		return parentMenuName;
+	}
+
+	public void setParentMenuName(String parentMenuName) {
+		this.parentMenuName = parentMenuName;
 	}
 }

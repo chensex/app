@@ -7,6 +7,7 @@
     -->
     <id column="menu_id" property="menuId" jdbcType="BIGINT" />
     <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="parent_menu_name" property="parentMenuName" jdbcType="VARCHAR" />
     <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -108,7 +109,13 @@
   </select>
   
   <select id="queryMenuByMenuId" parameterType="java.lang.Long" resultMap="BaseResultMap">
-		SELECT * FROM sys_menu a where a.menu_id = #{menuId}
+		SELECT
+			a.*, b.menu_name parent_menu_name
+		FROM
+			sys_menu a
+		LEFT JOIN sys_menu b ON a.parent_id = b.menu_id
+		WHERE
+			a.menu_id = #{menuId}
   </select>
   
   <select id="queryGrantMenuList" parameterType="java.util.HashMap" resultMap="BaseResultMap">

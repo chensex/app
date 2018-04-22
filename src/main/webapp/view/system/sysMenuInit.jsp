@@ -85,7 +85,7 @@
 			removeHoverDom: removeHoverDom,
 			selectedMulti: false,
 			showIcon : true,
-			dblClickExpand: false
+			dblClickExpand: true
 		},
 		edit: {
 			enable: true,
@@ -104,8 +104,7 @@
 			beforeDrag: beforeDrag,
 			beforeEditName: beforeEditName,
 			beforeRemove: beforeRemove,
-			beforeClick : beforeClick,
-			onClick: onNodeClick
+			beforeClick : beforeClick
 		}
 	};
 
@@ -122,9 +121,9 @@
 		return false;
 	}
 	function beforeClick(treeId, treeNode, clickFlag) {
-		if(treeNode.id==0){
-			return false;
-		}
+		/* if(treeNode.id==0){
+			return true;
+		} */
 		$("#testIframe").attr("src","<%=request.getContextPath()%>/system/addMenu?menuId="+treeNode.id);
 	}
 	function onNodeClick(e,treeId, treeNode) {  
@@ -218,6 +217,14 @@
 			$.messager.alert("错误", data.errorMessage, "error");
 		}
 		colseDlg();
+	}
+	
+	function fun(){
+		//重新加载数据
+		$.post("<%=request.getContextPath()%>/system/sysMenuInit", {},
+			function(data) {
+			$.fn.zTree.init($("#treeDemo"), setting, data);
+		}, "json");
 	}
 	
    /**

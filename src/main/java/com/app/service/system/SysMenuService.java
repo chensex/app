@@ -62,5 +62,5 @@ public interface SysMenuService {
 	 * 新增和修改菜单
 	 * @param sysMenu
 	 */
-	public void saveAndEditMenu(SysMenu sysMenu);
+	public Map<String, Object> saveAndEditMenu(SysMenu sysMenu);
 }

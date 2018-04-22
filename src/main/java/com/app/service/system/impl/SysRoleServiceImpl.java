@@ -86,7 +86,6 @@ public class SysRoleServiceImpl extends BaseServiceImpl implements SysRoleServic
 		}
 	}
 
-	@Override
 	public List<String> selectRoleNameByUserId(Long userId) {
 		return mapper.queryRoleNameByUserId(userId);
 	}
