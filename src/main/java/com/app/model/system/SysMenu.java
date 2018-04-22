@@ -24,6 +24,12 @@ public class SysMenu extends BaseModel{
      */
     @Column(name = "menu_name")
     private String menuName;
+    
+    /**
+     * 菜单类别
+     */
+    @Column(name = "menu_type")
+    private Integer menuType;
 
     /**
      * 菜单地址
@@ -275,5 +281,13 @@ public class SysMenu extends BaseModel{
 
 	public void setParentMenuName(String parentMenuName) {
 		this.parentMenuName = parentMenuName;
+	}
+
+	public Integer getMenuType() {
+		return menuType;
+	}
+
+	public void setMenuType(Integer menuType) {
+		this.menuType = menuType;
 	}
 }
