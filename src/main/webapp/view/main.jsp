@@ -57,6 +57,7 @@ var basePath = "<%=request.getContextPath()%>";
 		<div id="closeCurrent" data-options="iconCls:'icon-no'">关闭</div>
 		<div id="closeOthers" data-options="iconCls:'icon-no'">关闭其他</div>
 		<div id="closeAll" data-options="iconCls:'icon-cancel'">关闭全部</div>
+		<div id="reloadAll" data-options="iconCls:'icon-reload'">刷新当前</div>
 	</div>
 	<!-- 正下方panel -->
 	<div region="south" style="height: 60px; background-color: #27A6C9;"
@@ -129,6 +130,16 @@ var basePath = "<%=request.getContextPath()%>";
 	    		for(var i=0;i<allTabtitle.length;i++){
 	    			$('#centerTab').tabs('close', allTabtitle[i]);
 	    		}
+		   });
+		   $("#reloadAll").click(function(){
+			   var currTab = $('#centerTab').tabs('getSelected');
+			   var url = $(currTab.panel('options').content).attr('src');
+			   $('#centerTab').tabs('update', {
+		            tab: currTab,
+		            options: {
+		                content: '<iframe scrolling="auto" frameborder="0" src='+url+' style="width:100%;height:100%;"></iframe>'
+		            }
+		        });
 		   });
    
 	});
