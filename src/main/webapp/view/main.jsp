@@ -67,13 +67,70 @@ var basePath = "<%=request.getContextPath()%>";
 </body>
 <script type="text/javascript">
 	$(function() {
-		$(".centerTab-tabs").bind('contextmenu',function(e){           
-	         e.preventDefault();    
-	            $('#mm').menu('show', {    
-	                left: e.pageX,    
-	                top: e.pageY    
-	            });    
-	        });   
+		//生成tab标签
+		  $('#centerTab').tabs({
+		   border : true,
+		   /* onSelect : function(title) {
+		    alert(title + ' is selected');
+		   } */
+		  });
+
+		   //生成右键菜单 
+		   $('#centerTab').tabs({
+			   onLoad:function(panel){
+	    			var sw = $(window).width();
+	    			if (sw < 767){
+						$('body').layout('collapse', 'west');
+					}
+	    		},
+		    onContextMenu: function(e, title, index){
+		    	
+		    	e.preventDefault();
+    			if(index>0){
+    				$('#mm').menu('show', {
+    					left: e.pageX,
+    					top: e.pageY
+    				}).data("tabTitle", title);
+    			}
+		    }
+		   });
+		   
+		   //为每个菜单绑定点击事件
+		   //关闭选中的标签
+		   $("#closeCurrent").click(function(){
+			   var currtab_title = $('#mm').data("tabTitle");
+	    		$('#centerTab').tabs('close',currtab_title);
+		   });
+		   //关闭选中标签之外的标签
+		   $("#closeOthers").click(function(){
+			   var curTabTitle = $('#mm').data("tabTitle");
+	    		var allTabtitle = [];
+	    		var allTabs = $("#centerTab").tabs('tabs');
+	    		$.each(allTabs,function(i,n){
+	                var opt=$(n).panel('options');
+	                if(opt.closable)
+	                    allTabtitle.push(opt.title);
+	            });
+	    		for(var i=0;i<allTabtitle.length;i++){
+	    			if(allTabtitle[i] != curTabTitle){
+	    				$('#centerTab').tabs('close', allTabtitle[i]);
+	    			}
+	    		}
+		   });
+		   //关闭所有标签
+		   $("#closeAll").click(function(){
+			   var allTabtitle = [];
+	    		var allTabs = $("#centerTab").tabs('tabs');
+	    		$.each(allTabs,function(i,n){
+	                var opt=$(n).panel('options');
+	                if(opt.closable)
+	                    allTabtitle.push(opt.title);
+	            });
+	    		for(var i=0;i<allTabtitle.length;i++){
+	    			$('#centerTab').tabs('close', allTabtitle[i]);
+	    		}
+		   });
+   
 	});
 	function showLocale(objD) {
 		var str, colorhead, colorfoot;
