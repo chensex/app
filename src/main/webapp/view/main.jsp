@@ -53,6 +53,11 @@ var basePath = "<%=request.getContextPath()%>";
 			</div>
 		</div>
 	</div>
+	<div id="mm" class="easyui-menu" style="width:120px;display:none;">
+		<div id="closeCurrent" data-options="iconCls:'icon-no'">关闭</div>
+		<div id="closeOthers" data-options="iconCls:'icon-no'">关闭其他</div>
+		<div id="closeAll" data-options="iconCls:'icon-cancel'">关闭全部</div>
+	</div>
 	<!-- 正下方panel -->
 	<div region="south" style="height: 60px; background-color: #27A6C9;"
 		align="center">
@@ -61,6 +66,15 @@ var basePath = "<%=request.getContextPath()%>";
 	</div>
 </body>
 <script type="text/javascript">
+	$(function() {
+		$(".centerTab-tabs").bind('contextmenu',function(e){           
+	         e.preventDefault();    
+	            $('#mm').menu('show', {    
+	                left: e.pageX,    
+	                top: e.pageY    
+	            });    
+	        });   
+	});
 	function showLocale(objD) {
 		var str, colorhead, colorfoot;
 		var yy = objD.getYear();
