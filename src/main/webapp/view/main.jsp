@@ -26,10 +26,10 @@ var basePath = "<%=request.getContextPath()%>";
 	<div data-options="region:'north'"
 		style="height: 60px; background-color: #27A6C9;">
 		<div align="right">
-			<!-- <font color="black" size="6">WEB管理系统</font> -->
-			<span class="userN">欢迎：<%=user.getLoginName()%></span> <span
-				id="localtime" style="text-align: center;"></span> <a
-				href="<%=request.getContextPath()%>/system/userLoginOut">退出</a>&nbsp;&nbsp;&nbsp;
+			<br>
+			<span class="userN" id="localtime" style="text-align: center;"></span>
+			<span class="userN">欢迎：<%=user.getLoginName()%></span>
+			<a class="userN" href="<%=request.getContextPath()%>/system/userLoginOut">退出</a>&nbsp;&nbsp;&nbsp;
 		</div>
 
 	</div>
@@ -56,7 +56,7 @@ var basePath = "<%=request.getContextPath()%>";
 	<!-- 正下方panel -->
 	<div region="south" style="height: 60px; background-color: #27A6C9;"
 		align="center">
-		<label> 作者：陈伟<br /> 时间：2015-10-10<br /> 微博管理
+		<label> <br /> 后台管理 © / All Rights Reserved
 		</label>
 	</div>
 </body>
@@ -83,11 +83,11 @@ var basePath = "<%=request.getContextPath()%>";
 			ss = '0' + ss;
 		var ww = objD.getDay();
 		if (ww == 0)
-			colorhead = "<font color=\"#0099FF\">";
+			colorhead = "<font color=\"#FFFFFF\">";
 		if (ww > 0 && ww < 6)
-			colorhead = "<font color=\"#0099FF\">";
+			colorhead = "<font color=\"#FFFFFF\">";
 		if (ww == 6)
-			colorhead = "<font color=\"#0099FF\">";
+			colorhead = "<font color=\"#FFFFFF\">";
 		if (ww == 0)
 			ww = "星期日";
 		if (ww == 1)
