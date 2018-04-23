@@ -76,7 +76,9 @@
         	<ul id="tree" class="ztree"></ul>
         </div>
         <div id="dlg-buttonsGrant">
-			<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok"  id="saveGrant" onclick="saveRoleMenu()">授权</a> 
+        	<shiro:hasPermission name="system:role:save">
+				<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok"  id="saveGrant" onclick="saveRoleMenu()">授权</a> 
+			</shiro:hasPermission>
 			<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-cancel" id="closeGrant" onclick="colseGrantDlg();">关闭</a>
 		</div>
 	</div>

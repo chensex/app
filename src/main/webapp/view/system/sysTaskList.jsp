@@ -77,7 +77,9 @@
 			</table>
 		</form>
 		<div id="dlg-buttons">
-			<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok"  id="save" onclick="saveTask()">保存</a> 
+			<shiro:hasPermission name="system:task:save">
+				<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok"  id="save" onclick="saveTask()">保存</a> 
+			</shiro:hasPermission>
 			<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-cancel" id="close" onclick="colseDlg();">关闭</a>
 		</div>
 	</div>
