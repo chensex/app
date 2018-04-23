@@ -20,11 +20,19 @@ var basePath = "<%=request.getContextPath()%>";
 <link href="http://www.jq22.com/jquery/font-awesome.4.6.0.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="resources/css/sidebar-menu.css">
 <link rel="stylesheet" href="resources/css/main.css">
+<style type="text/css">
+.header {
+
+	background-image: url("images/top-bj.jpg");
+}
+.menubg{
+background-image: url("images/menu-bg.jpg");
+}
+</style>
 </head>
 <body class="easyui-layout">
 	<!-- top 顶部面板 -->
-	<div data-options="region:'north'"
-		style="height: 60px; background-color: #27A6C9;">
+	<div data-options="region:'north'" style="height: 60px;" class="header">
 		<div align="right">
 			<br>
 			<span class="userN" id="localtime" style="text-align: center;"></span>
@@ -35,8 +43,7 @@ var basePath = "<%=request.getContextPath()%>";
 	</div>
 
 	<!-- menu 菜单栏 -->
-	<div data-options="region:'west',title:'菜单导航',split:true"
-		style="width: 230px;height: 15px;">
+	<div data-options="region:'west',title:'菜单导航',split:true" style="width: 230px;height: 15px;" class="menubg">
 
 		<aside class="main-sidebar"> <section id="div_menu"
 			class="sidebar"> </section> </aside>
@@ -54,7 +61,7 @@ var basePath = "<%=request.getContextPath()%>";
 		</div>
 	</div>
 	<div id="mm" class="easyui-menu" style="width:120px;display:none;">
-		<div id="closeCurrent" data-options="iconCls:'icon-no'">关闭</div>
+		<div id="closeCurrent" data-options="iconCls:'icon-no'">关闭当前</div>
 		<div id="closeOthers" data-options="iconCls:'icon-no'">关闭其他</div>
 		<div id="closeAll" data-options="iconCls:'icon-cancel'">关闭全部</div>
 		<div id="reloadAll" data-options="iconCls:'icon-reload'">刷新当前</div>
