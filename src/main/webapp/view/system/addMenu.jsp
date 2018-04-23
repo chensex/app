@@ -16,8 +16,12 @@
 	<div class="easyui-layout" fit="true">
 		<div region="center" border="false" style="padding:5px 5px">
 			<div align="right">
-			<a id="query" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="saveMenu()">保存</a> 
-			<a id="clear" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="addMenu()">添加菜单</a>
+			<shiro:hasPermission name="system:menu:save">
+				<a id="query" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="saveMenu()">保存</a> 
+			</shiro:hasPermission>
+			<shiro:hasPermission name="system:menu:add">
+				<a id="clear" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="addMenu()">添加菜单</a>
+			</shiro:hasPermission>
 			</div>
 			<div class="easyui-panel" title="菜单管理" fit="true" style="padding-top: 50px;">
 				<form id="form" action="<%=request.getContextPath()%>/system/saveMenu" method="post">

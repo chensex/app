@@ -18,12 +18,8 @@
 					<label>任务名称：</label>
 					<input class="easyui-textbox" type="text" id="searchTaskName" name="searchTaskName" /> 
 					<p>
-						<shiro:hasPermission name="system:task:search">
-							<a id="query" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadGrid()">查询</a> 
-						</shiro:hasPermission>
-						<shiro:hasPermission name="system:task:clear">
-							<a id="clear" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearForm()">重置</a> 
-						</shiro:hasPermission>
+						<a id="query" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadGrid()">查询</a> 
+						<a id="clear" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearForm()">重置</a> 
 					</p>
 				</form>
 				
@@ -35,7 +31,14 @@
 			<div id="taskGrid"  fit="true"></div>
 		</div>
 	</div>
-
+	<div id="tb">
+		<shiro:hasPermission name="system:task:add">
+	   		<a href="javascript:void(0);" onclick="addTask();" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
+	    </shiro:hasPermission>
+	    <shiro:hasPermission name="system:task:edit">	
+	    	<a href="javascript:void(0);" onclick="editTask();" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>
+	    </shiro:hasPermission>	
+	</div>
 	<!-- 添加、修改dialog -->
 	<div id="dlg" class="easyui-dialog" style="width:500px;height:400px;display:none;" closed="true" buttons="#dlg-buttons">
 		<form id="form2" action="<%=request.getContextPath()%>/systask/saveTask" method="post">
@@ -122,18 +125,7 @@
 	            { field: "createTime", title: "创建时间", width: "16%", align: "center"},
 	            { field: "groupName", title: "组名", width: "16%", align: "center"}
 	        ]],
-	        toolbar : [{ iconCls : "icon-add",
-				text : "新增",
-				handler : function() {
-					addTask();
-				}
-			}, "-", {
-				iconCls : "icon-edit",
-				text : "编辑",
-				handler : function() {
-					editTask();
-				}
-			},"-"]
+	        toolbar : '#tb'
 	    });
 	}
 	

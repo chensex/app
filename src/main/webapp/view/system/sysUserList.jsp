@@ -33,7 +33,17 @@
 			<div id="userGrid"  fit="true"></div>
 		</div>
 	</div>
-
+	<div id="tb">
+		<shiro:hasPermission name="system:user:add">
+	   		<a href="javascript:void(0);" onclick="addUser();" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
+	    </shiro:hasPermission>
+	    <shiro:hasPermission name="system:user:edit">	
+	    	<a href="javascript:void(0);" onclick="editUser();" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>
+	    </shiro:hasPermission>	
+	    <shiro:hasPermission name="system:user:clearCount">
+	    	<a href="javascript:void(0);" onclick="clearUser();" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true">错误次数清零</a>
+		</shiro:hasPermission>
+	</div>
 	<!-- 添加、修改dialog -->
 	<div id="dlg" class="easyui-dialog" style="width:500px;height:400px;display:none;" closed="true" buttons="#dlg-buttons">
 		<form id="form2" action="<%=request.getContextPath()%>/system/saveMenu" method="post">
@@ -120,24 +130,7 @@
 	            { field: "createTime", title: "注册时间", width: "16%", align: "center"},
 	            { field: "state", title: "状态", width: "16%", align: "center",formatter:stateMap}
 	        ]],
-	        toolbar : [{ iconCls : "icon-add",
-				text : "新增",
-				handler : function() {
-					addUser();
-				}
-			}, "-", {
-				iconCls : "icon-edit",
-				text : "编辑",
-				handler : function() {
-					editUser();
-				}
-			},"-", {
-				iconCls : "icon-edit",
-				text : "错误次数清零",
-				handler : function() {
-					clearUser();
-				}
-			},"-"]
+	        toolbar : '#tb'
 	    });
 	}
 	

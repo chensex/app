@@ -18,12 +18,8 @@
 					<label>角色名称：</label>
 					<input class="easyui-textbox" type="text" id="searchRoleName" name="searchRoleName" /> 
 					<p>
-						<shiro:hasPermission name="system:role:search">
-							<a id="query" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadGrid()">查询</a> 
-						</shiro:hasPermission>
-						<shiro:hasPermission name="system:role:clear">
-							<a id="clear" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearForm()">重置</a> 
-						</shiro:hasPermission>
+						<a id="query" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadGrid()">查询</a> 
+						<a id="clear" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearForm()">重置</a> 
 					</p>
 				</form>
 				
@@ -62,6 +58,17 @@
 			<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-cancel" id="close" onclick="colseDlg();">关闭</a>
 		</div>
 	</div>
+	<div id="tb">
+		<shiro:hasPermission name="system:role:add">
+	   		<a href="javascript:void(0);" onclick="addRole();" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
+	    </shiro:hasPermission>
+	    <shiro:hasPermission name="system:role:edit">	
+	    	<a href="javascript:void(0);" onclick="editRole();" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>
+	    </shiro:hasPermission>	
+	    <shiro:hasPermission name="system:role:grant">
+	    	<a href="javascript:void(0);" onclick="grantRole();" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true">授权</a>
+		</shiro:hasPermission>
+	</div>
 	<!-- 添加、修改dialog -->
 	<div id="grantDialog" class="easyui-dialog" style="width:350px;height:400px;display:none;" closed="true" buttons="#dlg-buttonsGrant">
 		<input type="hidden" id="roleMenuId" name="roleMenuId"/>
@@ -82,6 +89,9 @@
 	$(function() {
 		initDatagrid();//初始化，dataGrid
 	});
+	var s = "  { iconCls : 'icon-add',text : '新增',handler : function() {addRole();}},'-', ";
+	var str = "<shiro:hasPermission name='system:menu:save'>";
+	var str1 = "</shiro:hasPermission>";
 	function initDatagrid(){
 		$("#roleGrid").datagrid({
 	    	title:"角色信息列表",
@@ -102,24 +112,7 @@
 	            { field: "state", title: "状态", width: "25%", align: "center",formatter:stateMap},
 	            { field: "_edit", title: "操作", width: "25%", align: "center",formatter:edit}
 	        ]],
-	        toolbar : [{ iconCls : "icon-add",
-				text : "新增",
-				handler : function() {
-					addRole();
-				}
-			}, "-", {
-				iconCls : "icon-edit",
-				text : "编辑",
-				handler : function() {
-					editRole();
-				}
-			}, "-", {
-				iconCls : "icon-edit",
-				text : "授权",
-				handler : function() {
-					grantRole();
-				}
-			}]
+	        toolbar : '#tb'
 	    });
 	}
 	
