@@ -23,7 +23,7 @@ var basePath = "<%=request.getContextPath()%>";
 </head>
 <body class="easyui-layout">
 	<!-- top 顶部面板 -->
-	<div data-options="region:'north',title:'WEB管理系统 ',split:true"
+	<div data-options="region:'north'"
 		style="height: 60px; background-color: #27A6C9;">
 		<div align="right">
 			<!-- <font color="black" size="6">WEB管理系统</font> -->
@@ -35,7 +35,7 @@ var basePath = "<%=request.getContextPath()%>";
 	</div>
 
 	<!-- menu 菜单栏 -->
-	<div data-options="region:'west',title:'菜单栏',split:true"
+	<div data-options="region:'west',title:'菜单导航',split:true"
 		style="width: 230px;height: 15px;">
 
 		<aside class="main-sidebar"> <section id="div_menu"
@@ -43,7 +43,7 @@ var basePath = "<%=request.getContextPath()%>";
 	</div>
 
 	<!-- function 功能区 -->
-	<div data-options="region:'center',title:'功能区'"
+	<div data-options="region:'center'"
 		style="padding: 5px; background: #27A6C9;">
 		<div class="easyui-tabs" id="centerTab" fit="true" border="false">
 			<div title="欢迎页" style="padding: 50px; overflow: hidden;">
