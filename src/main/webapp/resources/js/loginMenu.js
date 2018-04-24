@@ -7,6 +7,7 @@ $(function() {
 			var showlist = $("<ul class=\"sidebar-menu\"></ul>");
 			isFirstMenu = menulist.object.length;
 			showall(menulist.object, showlist);
+			console.log(showlist)
 			$("#div_menu").append(showlist);
 		} else {
 			alert('亲，请求失败！');
