@@ -1,7 +1,11 @@
 package com.app.service.system.impl;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.crypto.hash.SimpleHashRequest;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +51,13 @@ public class SysUserServiceImpl extends BaseServiceImpl implements SysUserServic
 	}
 
 	public void saveAndEditUser(SysUser sysUser,String roleIds) {
+		
+		sysUser.setUserCredentials(sysUser.getPassword());
+		
+		//二次加密 用于 shiro认证
+		String password = new SimpleHash("MD5", sysUser.getPassword(), ByteSource.Util.bytes(sysUser.getPassword())).toHex();
+		sysUser.setPassword(password);
+		
 		if(sysUser.getUserId()==null){
 			userMapper.insertSelective(sysUser);
 		}else{
