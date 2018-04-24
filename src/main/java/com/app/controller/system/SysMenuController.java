@@ -39,8 +39,8 @@ import com.github.pagehelper.PageInfo;
 public class SysMenuController extends BaseController{
 	@Autowired
 	private SysMenuService sysMenuService;
-	//@Autowired
-	//private RedisTemplate<String, Object> redisTemplate;
+	@Autowired
+	private RedisTemplate<String, Object> redisTemplate;
 	
 	@RequestMapping(value="/sysMenuInit",method=RequestMethod.GET)
 	public ModelAndView sysMenuInit(HttpServletRequest request,HttpServletResponse response){
@@ -105,10 +105,10 @@ public class SysMenuController extends BaseController{
 		debug("Controller分页日志:page=" + page + "pageSize=" + pageSize);
 		
 		//自定义时间存储
-		/*if(redisTemplate.opsForValue().get("test") == null) {
+		if(redisTemplate.opsForValue().get("test") == null) {
 			//从数据库读取 并放入redis
 			redisTemplate.opsForValue().set("test", "test",1,TimeUnit.HOURS);//存储一个小时
-		}*/
+		}
 		
 		return pageToJson(new PageInfo<SysMenu>(sysMenuService.selectSysMenuList(
 			getRequestParameterAsMap(req), page, pageSize)));

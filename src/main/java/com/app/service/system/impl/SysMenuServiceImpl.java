@@ -32,7 +32,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl implements SysMenuServic
 	}
 
 	//使用配置时间存储
-	/*@Cacheable("selectOptionMenuList")*/
+	@Cacheable("selectOptionMenuList")
 	public List<SysMenu> selectOptionMenuList() {
 		return sysMenuMapper.queryOptionMenuList();
 	}
