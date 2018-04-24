@@ -4,6 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
@@ -59,11 +63,19 @@ public class SystemController extends BaseController{
 			subject.login(token);//会跳到我们自定义的realm中
 			ajax.setState(CommonUtil.SUCCESS);
 			ajax.setContent("登录成功");
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (UnknownAccountException e) {
 			ajax.setState(CommonUtil.NOTPASSERROR);
-			ajax.setContent("登录失败");
-		}
+			ajax.setContent("用户名密码错误");
+		} catch (IncorrectCredentialsException e) {  
+			ajax.setState(CommonUtil.NOTPASSERROR);
+			ajax.setContent("用户名密码错误");
+        }catch (LockedAccountException e) {  
+			ajax.setState(CommonUtil.NOTPASSERROR);
+			ajax.setContent("登录次数超限");
+        }catch (AuthenticationException e){
+        	ajax.setState(CommonUtil.NOTPASSERROR);
+			ajax.setContent("其他错误："+e.getMessage());
+        }
 		
 		
 		
