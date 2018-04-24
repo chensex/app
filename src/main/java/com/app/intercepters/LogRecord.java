@@ -54,7 +54,7 @@ private static final Logger logger = Logger.getLogger(LogRecord.class);
 			user = (SysUser) session.getAttribute(CommonConstant.SESSION_USER);
 		}
 		SysLog log = new SysLog();
-		log.setUserId(user.getUserId());
+		log.setUserId(user == null ? null : user.getUserId());
 		log.setCreateTime(CommonUtil.getNowDate());
 		log.setLogType(1);
 		log.setUserIp(request.getRemoteAddr());
@@ -80,12 +80,12 @@ private static final Logger logger = Logger.getLogger(LogRecord.class);
 			user = (SysUser) session.getAttribute(CommonConstant.SESSION_USER);
 		}
 		SysLog log = new SysLog();
-		log.setUserId(user.getUserId());
+		log.setUserId(user == null ?null : user.getUserId());
 		log.setCreateTime(CommonUtil.getNowDate());
 		log.setLogType(0);
 		log.setUserIp(request.getRemoteAddr());
 		log.setEventName(getHandleName(joinPoint));
-		log.setDescription(e.getMessage().substring(0, 2000));
+		log.setDescription("程序异常");
 		sysLogService.saveSysLog(log);
 		logger.info("保存异常日志结束");
 	}
