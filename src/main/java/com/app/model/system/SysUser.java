@@ -19,11 +19,17 @@ public class SysUser implements Serializable{
     private Long userId;
 
     /**
+     * 登录凭证
+     */
+    @Column(name = "user_credentials")
+    private String userCredentials;
+
+    /**
      * 登录帐号
      */
     @Column(name = "login_name")
     private String loginName;
-
+    
     /**
      * 密码
      */
@@ -290,5 +296,13 @@ public class SysUser implements Serializable{
 
 	public void setUseRoles(List<SysRole> useRoles) {
 		this.useRoles = useRoles;
+	}
+
+	public String getUserCredentials() {
+		return userCredentials;
+	}
+
+	public void setUserCredentials(String userCredentials) {
+		this.userCredentials = userCredentials;
 	}
 }
