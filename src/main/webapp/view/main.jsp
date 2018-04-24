@@ -67,7 +67,7 @@ background-image: url("images/menu-bg.jpg");
 		<div id="reloadAll" data-options="iconCls:'icon-reload'">刷新当前</div>
 	</div>
 	<!-- 正下方panel -->
-	<div region="south" style="height: 60px; background-color: #27A6C9;"
+	<div region="south" class="header" style="height: 60px; background-color: #27A6C9;"
 		align="center">
 		<label> <br /> 后台管理 © / All Rights Reserved
 		</label>
