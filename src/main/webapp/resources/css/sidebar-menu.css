@@ -105,10 +105,10 @@
 
 .sidebar-menu .treeview-menu>li.active>a
 	{
-	color: #ffffff;
+	color: red;
 }
 
 .sidebar-menu .treeview-menu>li>a:hover
 	{
-	color: #ffffff;
+	color: #F76900;
 }
