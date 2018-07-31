@@ -118,12 +118,12 @@
     	<property name="poolConfig" ref="poolConfig"/>
     </bean>
     <!--jedis封装类配置 --> 
-    <bean id="cookieSerializer" class="org.springframework.session.web.http.DefaultCookieSerializer">
+    <!-- <bean id="cookieSerializer" class="org.springframework.session.web.http.DefaultCookieSerializer">
 		<property name="cookiePath" value="/"></property>
-	</bean> 
-    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+	</bean> --> 
+    <!-- <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
     	<property name="maxInactiveIntervalInSeconds" value="1800"></property>
-    </bean>
+    </bean> -->
     
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
     	<property name="connectionFactory" ref="connectionFactory"></property>
