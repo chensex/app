@@ -113,7 +113,7 @@ public class SysUserController extends BaseController{
 	@ResponseBody
 	public Object getAddSysUserById(){
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("state", 1);
+		map.put("state", 1); 
 		return roleService.selectSysRoleList(map);
 	}
 	
