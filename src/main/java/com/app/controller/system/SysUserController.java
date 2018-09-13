@@ -43,8 +43,8 @@ public class SysUserController extends BaseController{
 	@Autowired
 	private SysRoleService roleService;
 	
-	@Resource(name="testDestination")
-	private Destination testDestination;
+	/*@Resource(name="testDestination")
+	private Destination testDestination;*/
 	
 	//@Autowired
 	//private JmsTemplate jmsTemplate;
